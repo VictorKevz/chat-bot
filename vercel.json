@@ -1,7 +1,7 @@
 {
     "functions": {
         "server/api/**/*.ts": {
-            "runtime": "edge"
+            "runtime": "vercel-edge@2.5.0"
         }
     },
     "rewrites": [
