@@ -5,7 +5,7 @@ const ToggleButton = () => {
   const { toggleTheme, theme } = useTheme();
   //   const isDark = theme === "dark"
   return (
-    <div className="absolute top-4 right-5">
+    <div className="absolute top-4 right-5 z-100">
       <button
         type="button"
         className="text-[var(--text)])"

@@ -1,0 +1,13 @@
+{
+    "functions": {
+        "server/api/**/*.ts": {
+            "runtime": "edge"
+        }
+    },
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/server/api/$1"
+        }
+    ]
+}
