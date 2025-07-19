@@ -22,7 +22,7 @@ function App() {
         </header>
         <ToggleButton />
         <Content />
-        <div className="absolute left-0 bottom-0 w-full h-full bg-black/10 backdrop-blur-[.2rem] z-1"></div>
+        <div className="absolute left-0 bottom-0 w-full h-full bg-black/10 z-1"></div>
       </main>
     </ThemeProvider>
   );
