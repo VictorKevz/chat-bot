@@ -3,7 +3,7 @@ import ChatBubble from "./ChatBubble";
 import { SearchBar } from "./SearchBar";
 
 export const Content = () => {
-  const { chat, loading, error, chatLog } = useChat();
+  const { chat, chatLog } = useChat();
   return (
     <section className="w-full max-w-screen-xl h-[calc(100vh-12rem)] relative flex flex-col items-center justify-between mx-auto px-4 z-10">
       <article className="w-full flex flex-col items-center">
