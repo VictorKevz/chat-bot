@@ -20,7 +20,6 @@
   --secondary-color: #caa5f2;
 
   --gradient: linear-gradient(to top, #fff, #ebf3fc);
-  --main-bg: url("/light-main-bg2.png");
   --faded-gradient: linear-gradient(to top, #f2f0f0, #487cd772);
   --toggle-gradient: linear-gradient(to bottom, #ffffffc2, #2b6bda);
 }
@@ -47,7 +46,6 @@
   --gradient: linear-gradient(to right, #161616, #1c1f24fe);
   --faded-gradient: linear-gradient(to top, #070708fa, #487cd772);
   --toggle-gradient: linear-gradient(to right, #070708fa, #2b6bdac7);
-  --main-bg: url("/dark-main-bg1.png");
 }
 *,
 ::after,
