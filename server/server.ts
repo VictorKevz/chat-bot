@@ -44,12 +44,9 @@ app.post("/api/chat", async (req, res) => {
     const text = groqRes.data.choices[0].message.content;
     res.json({ text });
   } catch (err) {
-    console.error("SERVER ERROR:", err?.response?.data || err);
     res.status(500).json({
       error:
-        err?.response?.data?.error?.message ||
-        err.message ||
-        "Unexpected error",
+        err instanceof Error ? err.message : "Failed to connect to the server",
     });
   }
 });

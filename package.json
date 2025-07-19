@@ -7,12 +7,13 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "build": "tsc -b && vite build",
+    "build": "tsc",
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "ts-node server/server.ts",
     "dev": "vite",
-    "dev:server": "nodemon --watch server --ext ts --exec ts-node server/server.ts"
+    "dev:server": "nodemon --watch server --ext ts --exec ts-node server/server.ts",
+    "start": "node dist/server/server.js"
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.22",

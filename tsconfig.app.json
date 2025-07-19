@@ -26,7 +26,7 @@
   },
   "include": [
     "src",
-    "api",
-    "lib"
+    "lib",
+    "server"
   ]
 }
