@@ -13,7 +13,8 @@ export const useChat = () => {
       setLoading(true);
       setError(null);
       const API_BASE_URL =
-        import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+        import.meta.env.VITE_API_BASE_URL ||
+        "https://chat-bot-3p26.onrender.com";
 
       const res = await fetch(`${API_BASE_URL}/api/chat`, {
         method: "POST",
