@@ -2,30 +2,7 @@
 
 @import "tailwindcss";
 :root {
-  --neutral-0: #fff;
-  --neutral-100: #edf3f6;
-  --neutral-200: #e2e2db;
-  --neutral-300: #f0f4f5;
-  --neutral-400: #606162;
-  --neutral-800: #333334;
-
-  --neutral-900: #1e1e1f;
-  --neutral-1000: #0a0a0a;
-  --border: #e4f1ff;
-  --error: #df5a5a;
-
-  --primary-color: #2f4ebd;
-  --primary-color: #e5c430;
-  --secondary-color: #7ee855;
-  --secondary-color: #caa5f2;
-
-  --gradient: linear-gradient(to top, #fff, #ebf3fc);
-  --faded-gradient: linear-gradient(to top, #f2f0f0, #487cd772);
-  --toggle-gradient: linear-gradient(to bottom, #ffffffc2, #2b6bda);
-}
-
-.dark {
-  --neutral-0: #1e1e1f;
+  --neutral-0: #0e0e0f;
   --neutral-100: #333339;
   --neutral-200: #333334;
   --neutral-300: #2b2b2c;
@@ -33,20 +10,17 @@
   --neutral-800: #d6d6dae4;
   --neutral-900: #fcf8f8ea;
   --neutral-1000: #fff;
-
-  --primary-color: #2b6bda;
-  --primary-color: #e5c430;
-
-  --border: #343434;
+  --border: #e4f1ff;
   --error: #e77e7e;
 
-  /* --primary-color: #fdcd67; */
+  --primary-color: #0cc0df;
+  --secondary-color: #ffde59d4;
 
-  /* --primary-color: #af3cf6; */
-  --gradient: linear-gradient(to right, #161616, #1c1f24fe);
-  --faded-gradient: linear-gradient(to top, #070708fa, #487cd772);
-  --toggle-gradient: linear-gradient(to right, #070708fa, #2b6bdac7);
+  --border: #343434;
+  --yellow-gradient: linear-gradient(to right, #0cc0df, #ffde59d4);
+  --purple-gradient: linear-gradient(to right, #8c52ff, #5ce1e6);
 }
+
 *,
 ::after,
 ::before {
@@ -61,6 +35,7 @@ button,
 a {
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
@@ -69,7 +44,6 @@ a {
   color: inherit;
 }
 p {
-  font-size: 1.1rem;
   line-height: 1.5;
 }
 li {
@@ -80,6 +54,13 @@ input:hover,
 button:focus,
 input:focus {
   outline: none;
-  border: 1px solid var(--primary-color);
   cursor: pointer;
+}
+/* Hide scrollbar for a specific container */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

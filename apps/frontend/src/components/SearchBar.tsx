@@ -5,6 +5,7 @@ import {
   SearchBarProps,
   UserInputState,
 } from "../types/chatLog";
+import { ArrowUpward } from "@mui/icons-material";
 
 export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
   const [userInput, setUserInput] = useState<UserInputState>({
@@ -29,43 +30,54 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
       return;
     }
     submitPrompt(userInput.message);
+    setUserInput({
+      message: "",
+      isValid: true,
+    });
   };
   return (
-    <form
-      onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-      className="w-full flex items-center justify-center"
+    <div
+      className="p-px rounded-2xl"
+      style={{ background: "var(--purple-gradient)" }}
     >
-      <div className="w-full flex items-center relative">
-        <label htmlFor="message" className="w-full">
-          <input
-            type="text"
-            id="message"
-            value={userInput.message}
-            onChange={(e: OnChangeType) => handleChange(e)}
-            placeholder="Ask anything..."
-            className={`h-30 w-full border  border-r-0 rounded-l-xl pl-6 text-[var(--neutral-900)] ${
-              !userInput.isValid
-                ? "border-[var(--error)]"
-                : "border-[var(--neutral-100)]"
-            }`}
-          />
-        </label>
-        <button
-          type="submit"
-          className={`h-30.5  px-4 rounded-r-xl -ml-2 ${
-            !userInput.isValid
-              ? "bg-[var(--error)]"
-              : "bg-[var(--primary-color)]"
-          } `}
-        >
-          Search
-        </button>
-        {!userInput.isValid && (
-          <span className="absolute top-full mt-2 left-6 text-xs text-[var(--error)]">
-            Please enter a valid question!
-          </span>
-        )}
-      </div>
-    </form>
+      <form
+        autoComplete="off"
+        onSubmit={(e: OnSubmitType) => handleSubmit(e)}
+        className="w-full h-[8rem] flex flex-col items-center justify-between bg-[var(--neutral-100)] rounded-2xl z-30 focus-within:bg-[var(--neutral-300)]"
+      >
+        <div className="w-full flex items-center relative h-full px-6">
+          <label htmlFor="message" className="w-full h-full">
+            <input
+              type="text"
+              id="message"
+              value={userInput.message}
+              onChange={(e: OnChangeType) => handleChange(e)}
+              placeholder="Ask anything..."
+              className={`w-full h-full text-[var(--neutral-1000)] text-base font-medium ${
+                !userInput.isValid
+                  ? "border-[var(--error)]"
+                  : "border-[var(--neutral-100)]"
+              }`}
+            />
+          </label>
+          <button
+            type="submit"
+            className={`px-4 rounded-full h-10 w-10 bg-cover drop-shadow-xl`}
+            style={{ background: "var(--yellow-gradient)" }}
+          >
+            <ArrowUpward />
+          </button>
+          {!userInput.isValid && (
+            <span className="absolute top-full mt-2 left-6 text-xs text-[var(--error)]">
+              Please enter a valid question!
+            </span>
+          )}
+        </div>
+        <p className="text-sm text-[var(--neutral-400)] pb-2">
+          My chatbot can make mistakes, try to ask concise and precise questions
+          for a better experience. Thank you!❤️
+        </p>
+      </form>
+    </div>
   );
 };

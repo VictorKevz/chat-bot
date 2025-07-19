@@ -25,7 +25,7 @@ app.post("/api/chat", async (req, res) => {
       role: "system",
       content: `You are an AI assistant for Victor. Here is Victor's profile: ${JSON.stringify(
         profile
-      )}. Always use this information to answer questions about Victor.`,
+      )}. Always use this information to answer questions about Victor. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source."`,
     };
     const userMessage = {
       role: "user",

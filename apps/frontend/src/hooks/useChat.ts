@@ -4,10 +4,7 @@ import { ChatPair } from "../types/chatLog";
 export const useChat = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [chatLog, setChatLog] = useState<ChatPair[]>([
-    { role: "user", content: "Hello there!" },
-    { role: "ai", content: "Hi! How can I help you today?" },
-  ]);
+  const [chatLog, setChatLog] = useState<ChatPair[]>([]);
   const chat = async (message: string): Promise<string | undefined> => {
     try {
       setLoading(true);
