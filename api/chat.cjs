@@ -1,8 +1,8 @@
-import { google } from "@ai-sdk/google";
-import { CoreMessage, generateText } from "ai";
-import supabase from "../lib/supabase";
+const { google } = require("@ai-sdk/google");
+const { generateText } = require("ai");
+const supabase = require("../lib/supabase.cjs");
 
-export default async function handler(req: Request): Promise<Response> {
+module.exports = async function handler(req) {
   const { message } = await req.json();
 
   const { data: profile, error } = await supabase.from("profile").select("*");
@@ -14,7 +14,7 @@ export default async function handler(req: Request): Promise<Response> {
     });
   }
 
-  const messages: CoreMessage[] = [
+  const messages = [
     {
       role: "system",
       content: `This is the user's profile: ${JSON.stringify(
@@ -33,4 +33,4 @@ export default async function handler(req: Request): Promise<Response> {
   return new Response(JSON.stringify({ text }), {
     headers: { "Content-Type": "application/json" },
   });
-}
+};
