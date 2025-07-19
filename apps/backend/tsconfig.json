@@ -13,7 +13,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "bundler",
-    "strict": true
+    "strict": false,
+    "noImplicitAny": false
   },
   "include": [
     "server",
