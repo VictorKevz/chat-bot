@@ -43,9 +43,9 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
       <form
         autoComplete="off"
         onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-        className="w-full h-[8rem] flex flex-col items-center justify-between bg-[var(--neutral-0)] rounded-2xl z-30 focus-within:bg-[var(--neutral-100)]"
+        className="w-full h-[8rem] flex flex-col items-center justify-between bg-[var(--neutral-0)] px-6 rounded-2xl z-30 focus-within:bg-[var(--neutral-100)]"
       >
-        <div className="w-full flex items-center relative h-full px-6">
+        <div className="w-full flex items-center relative h-full ">
           <label htmlFor="message" className="w-full h-full">
             <input
               type="text"
@@ -73,7 +73,7 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
             </span>
           )}
         </div>
-        <p className="text-sm text-[var(--neutral-400)] pb-2">
+        <p className="text-xs md:text-sm text-[var(--neutral-400)] pb-2 text-center">
           My chatbot can make mistakes, try to ask concise and precise questions
           for a better experience. Thank you!❤️
         </p>

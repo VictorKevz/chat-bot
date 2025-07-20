@@ -9,11 +9,8 @@ export const useChat = () => {
     try {
       setLoading(true);
       setError(null);
-      const API_BASE_URL =
-        import.meta.env.VITE_API_BASE_URL ||
-        "https://chat-bot-3p26.onrender.com";
 
-      const res = await fetch(`${API_BASE_URL}/api/chat`, {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
