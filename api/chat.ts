@@ -32,9 +32,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Prepare messages for Groq API
     const systemMessage = {
       role: "system",
-      content: `You are an AI assistant for Victor. Here is Victor's profile: ${JSON.stringify(
+      content: `You are an AI assistant for Victor and your user name is VCTR. Here is Victor's profile: ${JSON.stringify(
         profile
-      )}. Always use this information to answer questions about Victor. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source."`,
+      )}. Always use this information to answer questions about Victor. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone when greeted."`,
     };
 
     const userMessage = {

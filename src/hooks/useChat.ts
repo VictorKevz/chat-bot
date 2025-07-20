@@ -10,6 +10,9 @@ export const useChat = () => {
       setLoading(true);
       setError(null);
 
+      // Add user message IMMEDIATELY so they can see
+      setChatLog((prev) => [...prev, { role: "user", content: message }]);
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -19,11 +22,8 @@ export const useChat = () => {
       if (!res.ok) throw new Error("API error");
 
       const data = await res.json();
-      setChatLog((prev) => [
-        ...prev,
-        { role: "user", content: message },
-        { role: "ai", content: data.text },
-      ]);
+      // Add only AI response (user already added above)
+      setChatLog((prev) => [...prev, { role: "ai", content: data.text }]);
       return data.text;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error");

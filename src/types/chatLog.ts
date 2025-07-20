@@ -18,4 +18,5 @@ export type SearchBarProps = {
 
 export type ChatBubbleProps = {
   data: ChatPair;
+  loading: boolean;
 };

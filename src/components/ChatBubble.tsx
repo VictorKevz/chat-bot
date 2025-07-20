@@ -1,7 +1,11 @@
-import { Person, SmartToy } from "@mui/icons-material";
-import { ChatBubbleProps } from "../types/chatLog";
+import { Person } from "@mui/icons-material";
+import { AIBubble } from "./AIBubble";
 
-const ChatBubble = ({ data }: ChatBubbleProps) => {
+export const ChatBubble = ({
+  data,
+}: {
+  data: { role: "user" | "ai"; content: string };
+}) => {
   const isUser = data.role === "user";
   return (
     <div className="w-full z-20">
@@ -18,20 +22,10 @@ const ChatBubble = ({ data }: ChatBubbleProps) => {
           </div>
         </div>
       ) : (
-        <div
-          className="w-[48%] p-px rounded-tr-3xl rounded-bl-3xl ml-auto"
-          style={{ background: "var(--yellow-gradient)" }}
-        >
-          <div className=" w-full flex flex-row-reverse items-center gap-2.5 p-4 bg-[var(--neutral-300)] rounded-tr-3xl rounded-bl-3xl">
-            <span className="min-h-12 min-w-12 rounded-full flex items-center justify-center bg-[var(--secondary-color)]">
-              <SmartToy fontSize="medium" className="text-[var(--neutral-0)]" />
-            </span>
-            <p className="text-white">{data.content}</p>
-          </div>
-        </div>
+        <AIBubble>
+          <p className="text-white">{data.content}</p>
+        </AIBubble>
       )}
     </div>
   );
 };
-
-export default ChatBubble;
