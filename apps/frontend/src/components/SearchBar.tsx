@@ -43,7 +43,7 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
       <form
         autoComplete="off"
         onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-        className="w-full h-[8rem] flex flex-col items-center justify-between bg-[var(--neutral-100)] rounded-2xl z-30 focus-within:bg-[var(--neutral-300)]"
+        className="w-full h-[8rem] flex flex-col items-center justify-between bg-[var(--neutral-0)] rounded-2xl z-30 focus-within:bg-[var(--neutral-100)]"
       >
         <div className="w-full flex items-center relative h-full px-6">
           <label htmlFor="message" className="w-full h-full">
