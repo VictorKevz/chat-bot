@@ -11,13 +11,13 @@ export const NavBar = () => {
     },
   ];
   return (
-    <div className="w-full bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] pb-px rounded-b-[4rem]">
-      <header className="w-full h-[5rem] flex justify-between items-center z-20 bg-[var(--neutral-100)] sticky top-0 shadow-lg px-8 rounded-b-[4rem]">
+    <div className="w-full bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] pb-px rounded-b-[4rem] z-20">
+      <header className="w-full h-[5rem] flex justify-between items-center  bg-[var(--neutral-100)] sticky top-0 shadow-lg px-8 rounded-b-[4rem]">
         <div className="flex items-center gap-2">
           <figure>
             <img src="/logo.png" className="w-[3.5rem] h-auto" alt="" />
           </figure>
-          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent uppercase flex items-end gap-1 tracking-wide">
+          <h1 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent uppercase flex items-end gap-1 tracking-wide">
             vctr
             <span
               className="rounded-full h-[.5rem] w-[.5rem] mb-2"
@@ -25,11 +25,12 @@ export const NavBar = () => {
             ></span>
           </h1>
         </div>
-        <ul className="flex items-center gap-5 md:-ml-20">
+        <ul className="flex items-center gap-5 -ml-10 md:-ml-20">
           {socialsData.map((item) => (
             <li key={item.id}>
               <a
                 href={item.url}
+                target="_blank"
                 className="bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] p-px rounded-full"
               >
                 <item.icon

@@ -2,11 +2,13 @@
 
 @import "tailwindcss";
 :root {
-  --neutral-0: #0e0e0f;
+  --neutral-0: #0f0f0f;
   --neutral-100: #333339;
   --neutral-200: #333334;
   --neutral-300: #2b2b2c;
-  --neutral-400: #8c8e90;
+  --neutral-400: #8c8f90;
+  --neutral-500: #394a4d;
+  --neutral-600: #403f44fe;
   --neutral-800: #d6d6dae4;
   --neutral-900: #fcf8f8ea;
   --neutral-1000: #fff;
@@ -19,6 +21,8 @@
   --border: #343434;
   --yellow-gradient: linear-gradient(to right, #0cc0df, #ffde59d4);
   --purple-gradient: linear-gradient(to right, #8c52ff, #5ce1e6);
+
+  --bg-main: #000000;
 }
 
 *,
@@ -63,4 +67,9 @@ input:focus {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+.glass-bubble-effect {
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background-color: #60576951;
 }

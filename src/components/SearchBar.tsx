@@ -43,7 +43,8 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
       <form
         autoComplete="off"
         onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-        className="w-full h-[8rem] flex flex-col items-center justify-between bg-[var(--neutral-200)] px-6 rounded-2xl z-30 focus-within:bg-[var(--neutral-0)]"
+        className="w-full h-[8rem] flex flex-col items-center justify-between bg-cover bg-no-repeat px-6 rounded-2xl z-30"
+        style={{ backgroundImage: "url(/user-buble-bg.png)" }}
       >
         <div className="w-full flex items-center relative h-full ">
           <label htmlFor="message" className="w-full h-full">
@@ -62,7 +63,7 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
           </label>
           <button
             type="submit"
-            className={`px-4 rounded-full h-10 w-10 bg-cover drop-shadow-xl`}
+            className={`px-4 rounded-full h-10 w-10 bg-cover drop-shadow-xl opacity-90`}
             style={{ background: "var(--yellow-gradient)" }}
           >
             <ArrowUpward />

@@ -20,20 +20,60 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       process.env.SUPABASE_ANON_KEY!
     );
 
-    // Get profile data from Supabase
-    const { data: profile, error } = await supabase.from("profile").select("*");
+    // Analyze user intent to determine which data to fetch
+    const messageText = message.toLowerCase();
+    const isAboutWork =
+      /work|job|experience|company|employment|career|project/.test(messageText);
+    const isAboutEducation =
+      /education|school|university|college|degree|study|academic/.test(
+        messageText
+      );
+    const isGeneralQuestion =
+      /hi|about|who|background|summary|overview|tell me/.test(messageText);
 
-    if (error || !profile) {
-      return res
-        .status(500)
-        .json({ error: error?.message || "Failed to fetch profile" });
+    const queries = [
+      { key: "profile", query: supabase.from("profile").select("*") },
+    ];
+
+    // Add relevant tables based on user intent
+    if (isAboutWork || isGeneralQuestion) {
+      queries.push({
+        key: "experience",
+        query: supabase.from("experience").select("*"),
+      });
     }
+    if (isAboutEducation || isGeneralQuestion) {
+      queries.push({
+        key: "education",
+        query: supabase.from("education").select("*"),
+      });
+    }
+
+    // Execute queries in parallel
+    const results = await Promise.all(queries.map((q) => q.query));
+
+    // Check for errors
+    const hasError = results.some((result) => result.error);
+    if (hasError) {
+      const errors = results.filter((r) => r.error).map((r) => r.error);
+      console.error("Supabase errors:", errors);
+      return res.status(500).json({
+        error: "Failed to fetch data from database",
+        details: errors,
+      });
+    }
+
+    // Build profile data object with only fetched tables
+    const profileData: any = {};
+    queries.forEach((q, index) => {
+      profileData[q.key] = results[index].data;
+    });
 
     // Prepare messages for Groq API
     const systemMessage = {
       role: "system",
-      content: `You are an AI assistant for Victor and your user name is VCTR. Here is Victor's profile: ${JSON.stringify(
-        profile
+      content: `You are an AI assistant for Victor and your user name is VCTR. Here is Victor's complete data: ${JSON.stringify(
+        profileData
       )}. Always use this information to answer questions about Victor. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone when greeted."`,
     };
 
@@ -52,14 +92,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "meta-llama/llama-4-scout-17b-16e-instruct",
+          model: "llama-3.3-70b-versatile",
           messages: [systemMessage, userMessage],
+          max_tokens: 1000,
+          temperature: 0.7,
         }),
       }
     );
 
     if (!groqResponse.ok) {
-      throw new Error(`Groq API error: ${groqResponse.status}`);
+      const errorText = await groqResponse.text();
+      console.error("Groq API error:", groqResponse.status, errorText);
+      throw new Error(`Groq API error: ${groqResponse.status} - ${errorText}`);
     }
 
     const groqData = await groqResponse.json();
