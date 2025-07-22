@@ -60,26 +60,23 @@ export const ChatBubble = ({
   return (
     <div className="w-full z-20">
       {isUser ? (
-        <div className="w-[calc(100%-2.5vw)] sm:w-[60%] lg:w-[48%] rounded-tl-3xl rounded-br-3xl relative p-px">
-          <div
-            className="w-full flex items-center gap-2.5 bg-cover bg-no-repeat p-4  shadow-[4rem] rounded-tl-3xl rounded-br-3xl border border-[#2d2c2c79]"
-            style={{ backgroundImage: "url(/user-buble-bg.png)" }}
-          >
-            <span className="min-h-12 min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]">
-              <Person fontSize="medium" className="shadow-xl" />
-            </span>
+        <div className="w-fit rounded-tl-3xl rounded-br-3xl relative p-px bg-[var(--neutral-600)] ml-auto">
+          <div className="w-full flex items-center justify-end gap-2.5 p-4  shadow-[4rem] rounded-tl-3xl rounded-br-3xl border border-[#2d2c2c79]">
             <p
-              className="text-[var(--neutral-1000)]"
+              className="text-[var(--neutral-1000)] text-sm sm:text-lg"
               style={{ whiteSpace: "normal", wordWrap: "break-word" }}
             >
               {renderContent(data.content)}
             </p>
+            <span className="min-h-12 min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]">
+              <Person fontSize="medium" className="shadow-xl" />
+            </span>
           </div>
         </div>
       ) : (
         <AIBubble>
           <p
-            className="text-white"
+            className="text-white text-sm sm:text-lg"
             style={{ whiteSpace: "normal", wordWrap: "break-word" }}
           >
             {renderContent(data.content)}

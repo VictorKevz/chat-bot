@@ -1,17 +1,11 @@
-import { useState } from "react";
-import {
-  OnChangeType,
-  OnSubmitType,
-  SearchBarProps,
-  UserInputState,
-} from "../types/chatLog";
+import { OnChangeType, OnSubmitType, SearchBarProps } from "../types/chatLog";
 import { ArrowUpward } from "@mui/icons-material";
 
-export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
-  const [userInput, setUserInput] = useState<UserInputState>({
-    message: "",
-    isValid: true,
-  });
+export const SearchBar = ({
+  submitPrompt,
+  userInput,
+  setUserInput,
+}: SearchBarProps) => {
   const handleChange = (e: OnChangeType) => {
     setUserInput({
       message: e.target.value,
@@ -43,23 +37,23 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
       <form
         autoComplete="off"
         onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-        className="w-full h-[8rem] flex flex-col items-center justify-between bg-cover bg-no-repeat px-6 rounded-2xl z-30"
+        className="w-full min-h-[8rem] flex flex-col items-center justify-between bg-cover bg-no-repeat px-6 rounded-2xl z-30"
         style={{ backgroundImage: "url(/user-buble-bg.png)" }}
       >
         <div className="w-full flex items-center relative h-full ">
           <label htmlFor="message" className="w-full h-full">
-            <input
-              type="text"
+            <textarea
+              tabIndex={-1}
               id="message"
               value={userInput.message}
               onChange={(e: OnChangeType) => handleChange(e)}
               placeholder="Ask anything..."
-              className={`w-full h-full text-[var(--neutral-1000)] text-base font-medium ${
+              className={`w-full h-full text-[var(--neutral-1000)] text-base font-medium p-6 resize-none custom-scrollbar ${
                 !userInput.isValid
                   ? "border-[var(--error)]"
                   : "border-[var(--neutral-100)]"
               }`}
-            />
+            ></textarea>
           </label>
           <button
             type="submit"
@@ -68,16 +62,18 @@ export const SearchBar = ({ submitPrompt }: SearchBarProps) => {
           >
             <ArrowUpward />
           </button>
-          {!userInput.isValid && (
-            <span className="absolute top-full mt-2 left-6 text-xs text-[var(--error)]">
-              Please enter a valid question!
-            </span>
-          )}
         </div>
-        <p className="text-xs md:text-sm text-[var(--neutral-400)] pb-2 text-center">
-          My chatbot can make mistakes, try to ask concise and precise questions
-          for a better experience. Thank you!❤️
-        </p>
+        {!userInput.isValid && (
+          <span className="absolute top-full mt-2 left-6 text-xs text-[var(--error)]">
+            Please enter a valid question!
+          </span>
+        )}
+        {!userInput.message && (
+          <p className="text-xs md:text-base text-[var(--neutral-400)] pb-4 text-center">
+            VCTR can make mistakes, try to ask concise and precise questions for
+            a better experience. Thank you!❤️
+          </p>
+        )}
       </form>
     </div>
   );

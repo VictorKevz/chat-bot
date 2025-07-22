@@ -3,13 +3,21 @@ import { ChatBubble } from "./ChatBubble";
 import { SearchBar } from "./SearchBar";
 import { LoadingBubble } from "./LoadingBubble";
 import { ArrowDownward, KeyboardArrowDown } from "@mui/icons-material";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FAQs } from "./FAQs";
+import { UserInputState } from "../types/chatLog";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const Content = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [showFaqs, setShowFaqs] = useState(false);
+
+  const [userInput, setUserInput] = useState<UserInputState>({
+    message: "",
+    isValid: true,
+  });
+
   const { chat, chatLog, loading } = useChat();
   const isEmpty = chatLog.length === 0;
 
@@ -41,6 +49,19 @@ export const Content = () => {
       });
     }
   };
+
+  const toggleFAQS = () => {
+    setShowFaqs((prev) => !prev);
+  };
+
+  //When user clicks the question, it gets prefilled in the input field
+  const OnInputPrefill = useCallback((question: string) => {
+    setUserInput((prev) => ({
+      ...prev,
+      message: question,
+    }));
+    toggleFAQS();
+  }, []);
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <section
@@ -52,9 +73,17 @@ export const Content = () => {
       >
         {isEmpty ? (
           <div className="w-full flex flex-col items-center justify-center text-center md:ml-10">
-            <h2 className="text-3xl md:text-7xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent">
+            <motion.h2
+              className="text-3xl md:text-7xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent"
+              animate={{ scale: [0.9, 1.02, 0.9] }}
+              transition={{
+                duration: 3,
+                ease: "easeInOut",
+                repeat: Infinity,
+              }}
+            >
               Hello, Welcome!
-            </h2>
+            </motion.h2>
             <p className="text-base md:text-lg text-[var(--neutral-400)]">
               Get to know Victor by chatting with his chatbot!
             </p>
@@ -68,13 +97,13 @@ export const Content = () => {
           </div>
         )}
         <div
-          className="fixed bottom-[11rem] z-30 rounded-full p-px"
+          className="fixed bottom-[12rem] z-30 rounded-full p-px"
           style={{ background: "var(--yellow-gradient)" }}
         >
           <button
             type="button"
             className="text-white text-lg  bg-[var(--neutral-0)]  py-3 px-5 rounded-full"
-            onClick={() => setShowFaqs(!showFaqs)}
+            onClick={toggleFAQS}
           >
             See some FAQs
             <span className="text-[var(--primary-color)] scale-120">
@@ -88,17 +117,24 @@ export const Content = () => {
         <button
           type="button"
           onClick={scrollToBottom}
-          className="fixed bottom-[25vh] w-10 h-10 opacity-90 bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] rounded-full flex items-center justify-center shadow-2xl z-30 hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:opacity-100 hover:scale-110"
+          className="fixed bottom-[40vh] 2xl:bottom-[30vh] w-10 h-10 opacity-90 bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] rounded-full flex items-center justify-center shadow-2xl z-30 hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:opacity-100 hover:scale-110"
         >
           <ArrowDownward className="text-white" fontSize="small" />
         </button>
       )}
 
       <div className=" max-w-screen-lg w-full px-4 fixed bottom-6 z-20">
-        <SearchBar submitPrompt={chat} />
+        <SearchBar
+          submitPrompt={chat}
+          userInput={userInput}
+          setUserInput={setUserInput}
+        />
       </div>
-
-      {showFaqs && <FAQs />}
+      <AnimatePresence mode="wait">
+        {showFaqs && (
+          <FAQs onCloseFAQs={toggleFAQS} onUpdate={OnInputPrefill} />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -8,7 +8,7 @@
   --neutral-300: #2b2b2c;
   --neutral-400: #8c8f90;
   --neutral-500: #394a4d;
-  --neutral-600: #403f44fe;
+  --neutral-600: #122b3d;
   --neutral-800: #d6d6dae4;
   --neutral-900: #fcf8f8ea;
   --neutral-1000: #fff;
@@ -34,6 +34,7 @@ h1,
 h2,
 h3 {
   font-weight: bold;
+  transition: 0.3s ease-in-out;
 }
 button,
 a {
@@ -53,23 +54,44 @@ p {
 li {
   list-style: none;
 }
+li,
+a,
+button {
+  transition: 0.3s ease-in-out;
+}
 button:hover,
-input:hover,
+textarea:hover,
 button:focus,
-input:focus {
+textarea:focus {
   outline: none;
   cursor: pointer;
 }
 /* Hide scrollbar for a specific container */
 .no-scrollbar {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
-.glass-bubble-effect {
-  backdrop-filter: blur(30px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  background-color: #60576951;
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-image: var(--purple-gradient);
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar {
+  scrollbar-width: 0.8rem;
+  scrollbar-color: auto;
+  scrollbar-color: #ffde59b0 transparent;
 }

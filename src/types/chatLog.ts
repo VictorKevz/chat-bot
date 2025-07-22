@@ -3,7 +3,7 @@ export type ChatPair = {
   content: string;
 };
 // ....................SEARCH BAR TYPES....................
-export type OnChangeType = React.ChangeEvent<HTMLInputElement>;
+export type OnChangeType = React.ChangeEvent<HTMLTextAreaElement>;
 export type OnSubmitType = React.FormEvent<HTMLFormElement>;
 
 export type UserInputState = {
@@ -13,10 +13,17 @@ export type UserInputState = {
 
 export type SearchBarProps = {
   submitPrompt: (message: string) => Promise<string | undefined>;
+  userInput: UserInputState;
+  setUserInput: React.Dispatch<React.SetStateAction<UserInputState>>;
 };
 // ....................CHAT BUBBLE TYPES....................
 
 export type ChatBubbleProps = {
   data: ChatPair;
   loading: boolean;
+};
+
+export type FAQsProps = {
+  onCloseFAQs: () => void;
+  onUpdate: (message: string) => void;
 };
