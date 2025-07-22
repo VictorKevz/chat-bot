@@ -8,7 +8,7 @@ function App() {
     <ThemeProvider>
       <main
         className="w-full min-h-screen flex flex-col items-center relative bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/main-bg2.svg)" }}
+        style={{ backgroundImage: "url(/main-bg.svg)" }}
       >
         <NavBar />
         <Content />

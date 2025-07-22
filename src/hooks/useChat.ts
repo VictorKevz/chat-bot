@@ -11,12 +11,19 @@ export const useChat = () => {
       setError(null);
 
       // Add user message IMMEDIATELY so they can see
-      setChatLog((prev) => [...prev, { role: "user", content: message }]);
+      const newUserMessage: ChatPair = { role: "user", content: message };
+      setChatLog((prev) => [...prev, newUserMessage]);
+
+      // Get current chat history including the new message
+      const currentChatLog = [...chatLog, newUserMessage];
 
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({
+          message,
+          chatHistory: currentChatLog,
+        }),
       });
 
       if (!res.ok) throw new Error("API error");

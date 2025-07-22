@@ -2,13 +2,14 @@ import { useChat } from "../hooks/useChat";
 import { ChatBubble } from "./ChatBubble";
 import { SearchBar } from "./SearchBar";
 import { LoadingBubble } from "./LoadingBubble";
-import { ArrowDownward } from "@mui/icons-material";
+import { ArrowDownward, KeyboardArrowDown } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
+import { FAQs } from "./FAQs";
 
 export const Content = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-
+  const [showFaqs, setShowFaqs] = useState(false);
   const { chat, chatLog, loading } = useChat();
   const isEmpty = chatLog.length === 0;
 
@@ -45,13 +46,13 @@ export const Content = () => {
       <section
         ref={sectionRef}
         onScroll={handleScroll}
-        className={`max-w-screen-xl w-full h-[calc(100dvh-8rem)] relative flex flex-col items-center px-4 z-10 overflow-y-scroll no-scrollbar pb-[9rem] ${
+        className={`max-w-screen-xl w-full h-[calc(100dvh-30vh)] relative flex flex-col items-center px-4 z-10 overflow-y-scroll no-scrollbar pb-[9rem]  ${
           isEmpty ? "justify-center" : "justify-start"
         } `}
       >
         {isEmpty ? (
           <div className="w-full flex flex-col items-center justify-center text-center md:ml-10">
-            <h2 className="text-3xl md:text-5xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-7xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent">
               Hello, Welcome!
             </h2>
             <p className="text-base md:text-lg text-[var(--neutral-400)]">
@@ -66,19 +67,38 @@ export const Content = () => {
             {loading && <LoadingBubble />}
           </div>
         )}
+        <div
+          className="fixed bottom-[11rem] z-30 rounded-full p-px"
+          style={{ background: "var(--yellow-gradient)" }}
+        >
+          <button
+            type="button"
+            className="text-white text-lg  bg-[var(--neutral-0)]  py-3 px-5 rounded-full"
+            onClick={() => setShowFaqs(!showFaqs)}
+          >
+            See some FAQs
+            <span className="text-[var(--primary-color)] scale-120">
+              <KeyboardArrowDown />
+            </span>
+          </button>
+        </div>
       </section>
+
       {showScrollButton && (
         <button
           type="button"
           onClick={scrollToBottom}
-          className="fixed bottom-[11rem] w-10 h-10 opacity-90 bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] rounded-full flex items-center justify-center shadow-2xl z-30 hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:opacity-100 hover:scale-110"
+          className="fixed bottom-[25vh] w-10 h-10 opacity-90 bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] rounded-full flex items-center justify-center shadow-2xl z-30 hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:opacity-100 hover:scale-110"
         >
           <ArrowDownward className="text-white" fontSize="small" />
         </button>
       )}
+
       <div className=" max-w-screen-lg w-full px-4 fixed bottom-6 z-20">
         <SearchBar submitPrompt={chat} />
       </div>
+
+      {showFaqs && <FAQs />}
     </div>
   );
 };

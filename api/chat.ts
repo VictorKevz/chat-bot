@@ -8,7 +8,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { message } = req.body;
+    const { message, chatHistory } = req.body;
 
     if (!message) {
       return res.status(400).json({ error: "Message is required" });
@@ -29,8 +29,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         messageText
       );
     const isGeneralQuestion =
-      /hi|about|who|background|summary|overview|tell me/.test(messageText);
+      /hi|about|who|background|summary|overview|tell me|languages/.test(
+        messageText
+      );
 
+    //Always fetch profile data and add one more table that matches the user's message!
     const queries = [
       { key: "profile", query: supabase.from("profile").select("*") },
     ];
@@ -77,10 +80,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       )}. Always use this information to answer questions about Victor. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone when greeted."`,
     };
 
-    const userMessage = {
-      role: "user",
-      content: message,
-    };
+    // Convert chat history to Groq format and include current message
+    const conversationMessages: Array<{ role: string; content: string }> = [];
+
+    if (chatHistory && Array.isArray(chatHistory)) {
+      // Convert frontend role names to Groq format
+      conversationMessages.push(
+        ...chatHistory.map((msg: any) => ({
+          role: msg.role === "ai" ? "assistant" : "user",
+          content: msg.content,
+        }))
+      );
+    } else {
+      // Fallback: just add the current message if no history
+      conversationMessages.push({
+        role: "user",
+        content: message,
+      });
+    }
+
+    // Combine system message with conversation history
+    const allMessages = [systemMessage, ...conversationMessages];
 
     // Call Groq API
     const groqResponse = await fetch(
@@ -93,7 +113,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         },
         body: JSON.stringify({
           model: "llama-3.3-70b-versatile",
-          messages: [systemMessage, userMessage],
+          messages: allMessages,
           max_tokens: 1000,
           temperature: 0.7,
         }),
