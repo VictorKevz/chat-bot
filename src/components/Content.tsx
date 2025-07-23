@@ -54,7 +54,6 @@ export const Content = () => {
     setShowFaqs((prev) => !prev);
   };
 
-  //When user clicks the question, it gets prefilled in the input field
   const OnInputPrefill = useCallback((question: string) => {
     chat(question);
     toggleFAQS();
@@ -94,7 +93,7 @@ export const Content = () => {
           </div>
         )}
         <div
-          className="fixed bottom-[12rem] z-30 rounded-full p-px"
+          className="fixed bottom-[30vh] z-30 rounded-full p-px"
           style={{ background: "var(--yellow-gradient)" }}
         >
           <button
