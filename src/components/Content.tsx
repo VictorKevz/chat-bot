@@ -56,10 +56,7 @@ export const Content = () => {
 
   //When user clicks the question, it gets prefilled in the input field
   const OnInputPrefill = useCallback((question: string) => {
-    setUserInput((prev) => ({
-      ...prev,
-      message: question,
-    }));
+    chat(question);
     toggleFAQS();
   }, []);
   return (
@@ -74,10 +71,10 @@ export const Content = () => {
         {isEmpty ? (
           <div className="w-full flex flex-col items-center justify-center text-center md:ml-10">
             <motion.h2
-              className="text-3xl md:text-7xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent"
+              className="text-4xl sm:text-7xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent"
               animate={{ scale: [0.9, 1.02, 0.9] }}
               transition={{
-                duration: 3,
+                duration: 2,
                 ease: "easeInOut",
                 repeat: Infinity,
               }}
