@@ -1,12 +1,9 @@
 import { Person } from "@mui/icons-material";
 import { AIBubble } from "./AIBubble";
 import { parseTextWithLinks } from "../utils/textFormatter";
+import { ChatPair } from "../types/chatLog";
 
-export const ChatBubble = ({
-  data,
-}: {
-  data: { role: "user" | "ai"; content: string };
-}) => {
+export const ChatBubble = ({ data }: { data: ChatPair }) => {
   const isUser = data.role === "user";
 
   // Here I only parse links for AI messages

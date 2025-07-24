@@ -81,15 +81,15 @@ export const FAQs = ({ onCloseFAQs, onUpdate }: FAQsProps) => {
                   <ul className="w-full bg-[var(--neutral-0)] py-5 px-4 rounded-lg divide-y divide-[var(--border)]">
                     {faq.questions.map((question) => (
                       <li
-                        key={question.question}
+                        key={question}
                         onClick={(e) => {
                           e.stopPropagation();
-                          onUpdate(question.question);
+                          onUpdate(question, faq.category);
                         }}
                         className="w-full flex items-start justify-between py-3 cursor-pointer hover:translate-x-2.5 group"
                       >
                         <span className="text-white text-sm lg:text-base group-hover:text-[var(--secondary-color)]">
-                          {question.question}
+                          {question}
                         </span>
                         <button
                           type="button"

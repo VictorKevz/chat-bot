@@ -1,12 +1,15 @@
 import { useChat } from "../hooks/useChat";
 import { ChatBubble } from "./ChatBubble";
-import { SearchBar } from "./SearchBar";
+import { InputField } from "./InputField";
 import { LoadingBubble } from "./LoadingBubble";
 import { ArrowDownward, KeyboardArrowDown } from "@mui/icons-material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FAQs } from "./FAQs";
 import { UserInputState } from "../types/chatLog";
 import { AnimatePresence, motion } from "framer-motion";
+import { useProjects } from "../hooks/useProjects";
+import { Loaders } from "../loaders/Loaders";
+import { ProjectPreview } from "./projects/ProjectPreview";
 
 export const Content = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -18,7 +21,8 @@ export const Content = () => {
     isValid: true,
   });
 
-  const { chat, chatLog, loading } = useChat();
+  const { sendChatMessage, chatLog, loading } = useChat();
+  const { projects, fetchProjects, projectsLoading } = useProjects();
   const isEmpty = chatLog.length === 0;
 
   // Auto-scroll to bottom when new messages arrive
@@ -54,8 +58,9 @@ export const Content = () => {
     setShowFaqs((prev) => !prev);
   };
 
-  const OnInputPrefill = useCallback((question: string) => {
-    chat(question);
+  const OnFAQsUpdate = useCallback((question: string, category: string) => {
+    sendChatMessage(question, category);
+    if (category === "projects") fetchProjects();
     toggleFAQS();
   }, []);
   return (
@@ -70,10 +75,10 @@ export const Content = () => {
         {isEmpty ? (
           <div className="w-full flex flex-col items-center justify-center text-center md:ml-10">
             <motion.h2
-              className="text-4xl sm:text-7xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent"
+              className="text-3xl md:text-7xl bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent"
               animate={{ scale: [0.9, 1.02, 0.9] }}
               transition={{
-                duration: 2,
+                duration: 3,
                 ease: "easeInOut",
                 repeat: Infinity,
               }}
@@ -90,6 +95,13 @@ export const Content = () => {
               <ChatBubble key={i} data={data} />
             ))}
             {loading && <LoadingBubble />}
+            <div className=" max-w-screen-md w-full grid gap-8 sm:grid-cols-2 my-8 pt-8">
+              {projectsLoading && <Loaders />}
+              {projects &&
+                projects.map((project) => (
+                  <ProjectPreview key={project.id} data={project} />
+                ))}
+            </div>
           </div>
         )}
         <div
@@ -113,23 +125,21 @@ export const Content = () => {
         <button
           type="button"
           onClick={scrollToBottom}
-          className="fixed bottom-[40vh] 2xl:bottom-[30vh] w-10 h-10 opacity-90 bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] rounded-full flex items-center justify-center shadow-2xl z-30 hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:opacity-100 hover:scale-110"
+          className="fixed bottom-[40vh] right-8 2xl:bottom-[30vh] w-10 h-10 opacity-70 bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] rounded-full flex items-center justify-center shadow-2xl z-30 hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:opacity-100 hover:scale-110"
         >
           <ArrowDownward className="text-white" fontSize="small" />
         </button>
       )}
 
       <div className=" max-w-screen-lg w-full px-4 fixed bottom-6 z-20">
-        <SearchBar
-          submitPrompt={chat}
+        <InputField
+          submitPrompt={sendChatMessage}
           userInput={userInput}
           setUserInput={setUserInput}
         />
       </div>
       <AnimatePresence mode="wait">
-        {showFaqs && (
-          <FAQs onCloseFAQs={toggleFAQS} onUpdate={OnInputPrefill} />
-        )}
+        {showFaqs && <FAQs onCloseFAQs={toggleFAQS} onUpdate={OnFAQsUpdate} />}
       </AnimatePresence>
     </div>
   );

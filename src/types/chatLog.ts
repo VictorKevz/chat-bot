@@ -1,5 +1,5 @@
 export type ChatPair = {
-  role: "user" | "ai";
+  role: "user" | "assistant";
   content: string;
 };
 // ....................SEARCH BAR TYPES....................
@@ -25,5 +25,5 @@ export type ChatBubbleProps = {
 
 export type FAQsProps = {
   onCloseFAQs: () => void;
-  onUpdate: (message: string) => void;
+  onUpdate: (message: string, category: string) => void;
 };

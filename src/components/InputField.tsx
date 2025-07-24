@@ -1,7 +1,7 @@
 import { OnChangeType, OnSubmitType, SearchBarProps } from "../types/chatLog";
 import { ArrowUpward } from "@mui/icons-material";
 
-export const SearchBar = ({
+export const InputField = ({
   submitPrompt,
   userInput,
   setUserInput,

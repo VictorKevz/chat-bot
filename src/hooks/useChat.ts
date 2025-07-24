@@ -5,7 +5,11 @@ export const useChat = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [chatLog, setChatLog] = useState<ChatPair[]>([]);
-  const chat = async (message: string): Promise<string | undefined> => {
+
+  const sendChatMessage = async (
+    message: string,
+    category?: string
+  ): Promise<string | undefined> => {
     try {
       setLoading(true);
       setError(null);
@@ -22,6 +26,7 @@ export const useChat = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message,
+          category,
           chatHistory: currentChatLog,
         }),
       });
@@ -30,7 +35,10 @@ export const useChat = () => {
 
       const data = await res.json();
       // Add only AI response (user already added above)
-      setChatLog((prev) => [...prev, { role: "ai", content: data.text }]);
+      setChatLog((prev) => [
+        ...prev,
+        { role: "assistant", content: data.text },
+      ]);
       return data.text;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error");
@@ -39,5 +47,10 @@ export const useChat = () => {
     }
   };
 
-  return { chat, loading, error, chatLog };
+  return {
+    sendChatMessage,
+    loading,
+    error,
+    chatLog,
+  };
 };

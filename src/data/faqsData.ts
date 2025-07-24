@@ -8,98 +8,48 @@ import {
 export const faqsData = [
   {
     title: "Projects",
+    category: "projects",
     icon: CodeOutlined,
     questions: [
-      {
-        question: "What are some of Victor's personal projects?",
-        tags: ["projects", "portfolio"],
-      },
-      {
-        question: "Where can I see his portfolio?",
-        tags: ["projects", "portfolio"],
-      },
-      {
-        question: "What tech stack does he use for his projects?",
-        tags: ["projects", "tech stack"],
-      },
-      {
-        question: "Which project is he most proud of?",
-        tags: ["projects", "highlight"],
-      },
-      {
-        question: "How does he come up with project ideas?",
-        tags: ["projects", "creativity"],
-      },
+      "What are some of Victor's personal projects?",
+      "Where can I see his portfolio?",
+      "What tech stack does he use for his projects?",
+      "Which project is he most proud of?",
+      "How does he come up with project ideas?",
     ],
   },
   {
     title: "Experience",
+    category: "experience",
     icon: WorkOutline,
     questions: [
-      {
-        question: "Tell me about Victor's work experience.",
-        tags: ["experience", "career"],
-      },
-      {
-        question: "What was his most challenging project?",
-        tags: ["experience", "projects"],
-      },
-      {
-        question: "What is his role currently?",
-        tags: ["experience", "current role"],
-      },
-      {
-        question: "How many years of experience does he have?",
-        tags: ["experience", "timeline"],
-      },
-      {
-        question: "What kind of teams has he worked with?",
-        tags: ["experience", "collaboration"],
-      },
+      "Tell me about Victor's work experience.",
+      "What was his most challenging project?",
+      "What is his role currently?",
+      "How many years of experience does he have?",
+      "What kind of teams has he worked with?",
     ],
   },
   {
     title: "Education",
+    category: "education",
     icon: SchoolOutlined,
     questions: [
-      {
-        question: "Where did Victor study?",
-        tags: ["education", "university"],
-      },
-      {
-        question: "What was his major?",
-        tags: ["education", "degree"],
-      },
-      {
-        question: "What was his graduation year?",
-        tags: ["education", "timeline"],
-      },
-      {
-        question: "Any relevant certifications?",
-        tags: ["education", "certifications"],
-      },
+      "Where did Victor study?",
+      "What was his major?",
+      "What was his graduation year?",
+      "Any relevant certifications?",
     ],
   },
   {
     title: "Personal",
+    category: "personal",
     icon: Celebration,
     questions: [
-      {
-        question: "What does Victor do for fun?",
-        tags: ["personal", "hobbies"],
-      },
-      {
-        question: "How can I contact Victor?",
-        tags: ["personal", "contact"],
-      },
-      {
-        question: "What are his hobbies and interests?",
-        tags: ["personal", "interests"],
-      },
-      {
-        question: "Does he have any pets?",
-        tags: ["personal", "fun facts"],
-      },
+      "What does Victor do for fun?",
+      "Any fun facts about him?",
+      "Does he have any pets?",
+      "What kind of food does he like?",
     ],
   },
 ];
