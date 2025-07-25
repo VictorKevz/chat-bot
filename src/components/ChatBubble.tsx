@@ -1,7 +1,8 @@
-import { Person } from "@mui/icons-material";
+import { Person, SmartToy } from "@mui/icons-material";
 import { AIBubble } from "./AIBubble";
 import { parseTextWithLinks } from "../utils/textFormatter";
 import { ChatPair } from "../types/chatLog";
+import { ProjectPreview } from "./projects/ProjectPreview";
 
 export const ChatBubble = ({ data }: { data: ChatPair }) => {
   const isUser = data.role === "user";
@@ -64,18 +65,31 @@ export const ChatBubble = ({ data }: { data: ChatPair }) => {
           >
             {renderContent(data.content)}
           </p>
-          <span className="min-h-12 min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]">
+          <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]">
             <Person fontSize="medium" className="shadow-xl" />
           </span>
         </div>
       ) : (
-        <AIBubble>
-          <p
-            className="text-white text-sm sm:text-lg"
-            style={{ whiteSpace: "normal", wordWrap: "break-word" }}
-          >
-            {renderContent(data.content)}
-          </p>
+        <AIBubble showProjects={(data.projectsData?.length ?? 0) > 0}>
+          <div className={`flex items-center gap-2 my-5`}>
+            <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
+              <SmartToy fontSize="medium" className="text-[var(--neutral-0)]" />
+            </span>
+            <p
+              className="text-white text-sm sm:text-lg w-[90%]"
+              style={{ whiteSpace: "normal", wordWrap: "break-word" }}
+            >
+              {renderContent(data.content)}
+            </p>
+          </div>
+
+          {data.projectsData && data.projectsData.length > 0 && (
+            <div className="w-full grid gap-16 sm:gap-8 sm:grid-cols-2 my-8 pt-8">
+              {data.projectsData.map((project) => (
+                <ProjectPreview key={project.id} data={project} />
+              ))}
+            </div>
+          )}
         </AIBubble>
       )}
     </div>

@@ -3,7 +3,7 @@ import { ProjectPreviewProps } from "../../types/projects";
 export const ProjectPreview = ({ data }: ProjectPreviewProps) => {
   const { title, image_urls: images, live_url } = data;
   return (
-    <div className="w-full flex flex-col items-center px-4 pb-6 bg-[var(--neutral-500)] rounded-xl">
+    <div className="w-full flex flex-col items-center px-4 pb-6 bg-[var(--neutral-600)] rounded-xl">
       <figure
         className=" rounded-full bg-[var()] -mt-9 px-px shadow-2xl"
         style={{ background: "var(--purple-gradient)" }}
@@ -20,13 +20,14 @@ export const ProjectPreview = ({ data }: ProjectPreviewProps) => {
         </button>
         <a
           href={live_url}
+          target="_blank"
           className="h-10 min-w-fit md:max-w-[130px] w-full rounded-xl bg-[var(--neutral-0)] text-[var(--secondary-color)] border border-[var(--secondary-color)]"
         >
           Demo
         </a>
       </div>
       <div
-        className="w-full min-h-[10rem] bg-cover bg-top bg-no-repeat rounded-xl"
+        className="w-full min-h-[10rem] bg-cover bg-top bg-no-repeat rounded-xl shadow-2xl"
         style={{ backgroundImage: `url(${images?.[1]})` }}
       ></div>
     </div>

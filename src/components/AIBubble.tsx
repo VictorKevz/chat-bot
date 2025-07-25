@@ -1,17 +1,20 @@
-import { SmartToy } from "@mui/icons-material";
 import { ReactNode } from "react";
 
-interface AIBubbleProps {
+type AIBubbleProps = {
   children: ReactNode;
-}
+  showProjects: boolean;
+};
 
-export const AIBubble = ({ children }: AIBubbleProps) => {
+export const AIBubble = ({ children, showProjects }: AIBubbleProps) => {
   return (
-    <div className="w-full p-px">
-      <div className="w-fit max-w-screen-sm flex items-center gap-2.5 px-6 py-5 bg-[var(--neutral-500)] rounded-tr-full rounded-br-lg rounded-tl-full rounded-bl-full">
-        <span className="min-h-12 min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
-          <SmartToy fontSize="medium" className="text-[var(--neutral-0)]" />
-        </span>
+    <div className="w-full flex flex-col">
+      <div
+        className={` ${
+          showProjects
+            ? "relative flex-col max-w-screen-md w-full rounded-l-[4rem] rounded-tr-[5rem] "
+            : "w-fit max-w-screen-sm rounded-tr-full rounded-br-lg rounded-tl-full rounded-bl-full"
+        }   flex items-center gap-2.5 px-6 py-5 bg-[var(--neutral-500)] `}
+      >
         {children}
       </div>
     </div>

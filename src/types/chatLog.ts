@@ -1,6 +1,9 @@
+import { ProjectItem } from "./projects";
+
 export type ChatPair = {
   role: "user" | "assistant";
   content: string;
+  projectsData?: ProjectItem[]; // Optional projects data for assistant messages
 };
 // ....................SEARCH BAR TYPES....................
 export type OnChangeType = React.ChangeEvent<HTMLTextAreaElement>;

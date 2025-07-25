@@ -8,7 +8,6 @@ import { FAQs } from "./FAQs";
 import { UserInputState } from "../types/chatLog";
 import { AnimatePresence, motion } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
-import { ProjectPreview } from "./projects/ProjectPreview";
 import { RiseLoaderWrapper } from "../loaders/Loaders";
 
 export const Content = () => {
@@ -21,8 +20,8 @@ export const Content = () => {
     isValid: true,
   });
 
-  const { sendChatMessage, chatLog, loading, keyCategory } = useChat();
-  const { projects, fetchProjects, projectsLoading } = useProjects();
+  const { sendChatMessage, chatLog, loading } = useChat();
+  const { fetchProjects, projectsLoading } = useProjects();
   const isEmpty = chatLog.length === 0;
 
   // Auto-scroll to bottom when new messages arrive
@@ -58,12 +57,20 @@ export const Content = () => {
     setShowFaqs((prev) => !prev);
   };
 
-  const OnFAQsUpdate = useCallback((question: string, category: string) => {
-    sendChatMessage(question, category);
-    if (category === "projects") fetchProjects();
-    toggleFAQS();
-  }, []);
-  const showProjects = keyCategory === "projects";
+  const OnFAQsUpdate = useCallback(
+    async (question: string, category: string) => {
+      if (category === "projects") {
+        // Fetch projects first, then send message with projects data
+        const projectsData = await fetchProjects();
+        sendChatMessage(question, category, projectsData);
+      } else {
+        sendChatMessage(question, category);
+      }
+      toggleFAQS();
+    },
+    [fetchProjects, sendChatMessage]
+  );
+
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <section
@@ -99,18 +106,10 @@ export const Content = () => {
             <div className="w-full mx-auto">
               {projectsLoading && <RiseLoaderWrapper />}
             </div>
-            {showProjects && (
-              <div className="relative max-w-screen-md w-full grid gap-8 sm:grid-cols-2 my-8 pt-8">
-                {projects &&
-                  projects.map((project) => (
-                    <ProjectPreview key={project.id} data={project} />
-                  ))}
-              </div>
-            )}
           </div>
         )}
         <div
-          className="fixed bottom-[30vh] z-30 rounded-full p-px"
+          className="fixed bottom-[25vh] z-30 rounded-full p-px"
           style={{ background: "var(--yellow-gradient)" }}
         >
           <button
