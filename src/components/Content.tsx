@@ -8,8 +8,8 @@ import { FAQs } from "./FAQs";
 import { UserInputState } from "../types/chatLog";
 import { AnimatePresence, motion } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
-import { Loaders } from "../loaders/Loaders";
 import { ProjectPreview } from "./projects/ProjectPreview";
+import { RiseLoaderWrapper } from "../loaders/Loaders";
 
 export const Content = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -21,7 +21,7 @@ export const Content = () => {
     isValid: true,
   });
 
-  const { sendChatMessage, chatLog, loading } = useChat();
+  const { sendChatMessage, chatLog, loading, keyCategory } = useChat();
   const { projects, fetchProjects, projectsLoading } = useProjects();
   const isEmpty = chatLog.length === 0;
 
@@ -63,6 +63,7 @@ export const Content = () => {
     if (category === "projects") fetchProjects();
     toggleFAQS();
   }, []);
+  const showProjects = keyCategory === "projects";
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <section
@@ -95,13 +96,17 @@ export const Content = () => {
               <ChatBubble key={i} data={data} />
             ))}
             {loading && <LoadingBubble />}
-            <div className=" max-w-screen-md w-full grid gap-8 sm:grid-cols-2 my-8 pt-8">
-              {projectsLoading && <Loaders />}
-              {projects &&
-                projects.map((project) => (
-                  <ProjectPreview key={project.id} data={project} />
-                ))}
+            <div className="w-full mx-auto">
+              {projectsLoading && <RiseLoaderWrapper />}
             </div>
+            {showProjects && (
+              <div className="relative max-w-screen-md w-full grid gap-8 sm:grid-cols-2 my-8 pt-8">
+                {projects &&
+                  projects.map((project) => (
+                    <ProjectPreview key={project.id} data={project} />
+                  ))}
+              </div>
+            )}
           </div>
         )}
         <div

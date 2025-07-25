@@ -1,10 +1,10 @@
-import { Loaders } from "../loaders/Loaders";
+import { BeatLoaderWrapper } from "../loaders/Loaders";
 import { AIBubble } from "./AIBubble";
 
 export const LoadingBubble = () => {
   return (
     <AIBubble>
-      <Loaders />
+      <BeatLoaderWrapper />
     </AIBubble>
   );
 };

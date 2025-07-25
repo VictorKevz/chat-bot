@@ -5,6 +5,7 @@ export const useChat = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [chatLog, setChatLog] = useState<ChatPair[]>([]);
+  const [keyCategory, setKeyCategory] = useState<string>("");
 
   const sendChatMessage = async (
     message: string,
@@ -17,7 +18,7 @@ export const useChat = () => {
       // Add user message IMMEDIATELY so they can see
       const newUserMessage: ChatPair = { role: "user", content: message };
       setChatLog((prev) => [...prev, newUserMessage]);
-
+      setKeyCategory(category ?? "");
       // Get current chat history including the new message
       const currentChatLog = [...chatLog, newUserMessage];
 
@@ -52,5 +53,6 @@ export const useChat = () => {
     loading,
     error,
     chatLog,
+    keyCategory,
   };
 };

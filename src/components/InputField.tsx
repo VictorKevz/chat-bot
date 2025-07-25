@@ -37,7 +37,7 @@ export const InputField = ({
       <form
         autoComplete="off"
         onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-        className="w-full min-h-[8rem] flex flex-col items-center justify-between bg-cover bg-no-repeat px-6 rounded-2xl z-30"
+        className="w-full min-h-[20vh] flex flex-col items-center justify-between bg-cover bg-no-repeat px-4 rounded-2xl z-30"
         style={{ backgroundImage: "url(/user-buble-bg.png)" }}
       >
         <div className="w-full flex items-center relative h-full ">
