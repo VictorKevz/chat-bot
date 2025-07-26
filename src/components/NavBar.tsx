@@ -42,17 +42,22 @@ export const NavBar = () => {
             ></span>
           </h1>
         </div>
-        <div className="relative flex items-center justify-center">
-          <span
-            role="button"
-            className="md:hidden text-white/85 flex items-center"
-            onClick={toggleSocials}
+        <div className="relative flex items-center justify-center scale-80 sm:scale-100">
+          <div
+            className="rounded-lg p-px"
+            style={{ background: "var(--purple-gradient)" }}
           >
-            <Person />
-            <span className="-ml-1 text-[var(--secondary-color)]">
-              {showSocials ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            <span
+              role="button"
+              className="md:hidden text-white/85 h-10 w-12  flex items-center justify-center bg-[var(--neutral-100)] rounded-xl"
+              onClick={toggleSocials}
+            >
+              <Person />
+              <span className="-ml-1 text-[var(--primary-color)]">
+                {showSocials ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+              </span>
             </span>
-          </span>
+          </div>
           <ul
             className={`${
               showSocials ? "flex mt-8 p-5" : "hidden md:flex"

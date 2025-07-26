@@ -6,6 +6,9 @@ import { ProjectPreview } from "./projects/ProjectPreview";
 
 export const ChatBubble = ({ data }: { data: ChatPair }) => {
   const isUser = data.role === "user";
+  const hasProjects = Boolean(
+    data.projectsData && data.projectsData.length > 0
+  );
 
   // Here I only parse links for AI messages
   const renderContent = (text: string) => {
@@ -70,27 +73,32 @@ export const ChatBubble = ({ data }: { data: ChatPair }) => {
           </span>
         </div>
       ) : (
-        <AIBubble showProjects={(data.projectsData?.length ?? 0) > 0}>
-          <div className={`flex items-center gap-2 my-5`}>
-            <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
-              <SmartToy fontSize="medium" className="text-[var(--neutral-0)]" />
-            </span>
-            <p
-              className="text-white text-sm sm:text-lg w-[90%]"
-              style={{ whiteSpace: "normal", wordWrap: "break-word" }}
-            >
-              {renderContent(data.content)}
-            </p>
-          </div>
-
-          {data.projectsData && data.projectsData.length > 0 && (
-            <div className="w-full grid gap-16 sm:gap-8 sm:grid-cols-2 my-8 pt-8">
-              {data.projectsData.map((project) => (
-                <ProjectPreview key={project.id} data={project} />
-              ))}
+        <div className={`${hasProjects ? "projects-showcase-bubble" : ""}`}>
+          <AIBubble showProjects={hasProjects}>
+            <div className={`flex items-center gap-2 my-5`}>
+              <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
+                <SmartToy
+                  fontSize="medium"
+                  className="text-[var(--neutral-0)]"
+                />
+              </span>
+              <p
+                className="text-white text-sm sm:text-lg w-[90%]"
+                style={{ whiteSpace: "normal", wordWrap: "break-word" }}
+              >
+                {renderContent(data.content)}
+              </p>
             </div>
-          )}
-        </AIBubble>
+
+            {hasProjects && (
+              <div className="w-full grid gap-16 sm:gap-8 sm:grid-cols-2 my-8 pt-12 border-t border-gray-400/40">
+                {data.projectsData!.map((project) => (
+                  <ProjectPreview key={project.id} data={project} />
+                ))}
+              </div>
+            )}
+          </AIBubble>
+        </div>
       )}
     </div>
   );

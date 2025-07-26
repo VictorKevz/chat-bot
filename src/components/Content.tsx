@@ -76,7 +76,7 @@ export const Content = () => {
       <section
         ref={sectionRef}
         onScroll={handleScroll}
-        className={`max-w-screen-xl w-full h-[calc(100dvh-30vh)] relative flex flex-col items-center px-4 z-10 overflow-y-scroll no-scrollbar pb-[9rem]  ${
+        className={`max-w-screen-xl w-full h-[calc(100dvh-15dvh)] relative flex flex-col items-center px-4 z-10 overflow-y-scroll no-scrollbar pb-[9rem]  ${
           isEmpty ? "justify-center" : "justify-start"
         } `}
       >
@@ -109,12 +109,14 @@ export const Content = () => {
           </div>
         )}
         <div
-          className="fixed bottom-[25vh] z-30 rounded-full p-px"
+          className={`fixed bottom-[25dvh] z-50 rounded-full p-px  2xl:scale-100 ${
+            isEmpty ? "opacity-100 scale-100" : "opacity-75 scale-65"
+          }`}
           style={{ background: "var(--yellow-gradient)" }}
         >
           <button
             type="button"
-            className="text-white text-lg  bg-[var(--neutral-0)]  py-3 px-5 rounded-full"
+            className="text-white text-lg  bg-[var(--neutral-0)] py-3 px-5 rounded-full"
             onClick={toggleFAQS}
           >
             See some FAQs
@@ -135,7 +137,7 @@ export const Content = () => {
         </button>
       )}
 
-      <div className=" max-w-screen-lg w-full px-4 fixed bottom-6 z-20">
+      <div className=" max-w-screen-lg w-full px-4 fixed z-20 bottom-4">
         <InputField
           submitPrompt={sendChatMessage}
           userInput={userInput}

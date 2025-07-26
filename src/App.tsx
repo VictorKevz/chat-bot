@@ -12,16 +12,6 @@ function App() {
       >
         <NavBar />
         <Content />
-        {/* <img
-          src="/bg-bottom-left.png"
-          className="absolute bottom-0 right-0 w-full h-[80vh]"
-          alt=""
-        /> */}
-        {/* <img
-          src="/bg-top-right.png"
-          className="absolute top-0 right-0 w-[30rem]"
-          alt=""
-        /> */}
       </main>
     </ThemeProvider>
   );

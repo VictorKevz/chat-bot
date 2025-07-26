@@ -37,7 +37,7 @@ export const InputField = ({
       <form
         autoComplete="off"
         onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-        className="w-full min-h-[20vh] flex flex-col items-center justify-between bg-cover bg-no-repeat px-4 rounded-2xl z-30"
+        className="w-full min-h-[20dvh] flex flex-col items-center justify-between bg-cover bg-no-repeat px-4 rounded-2xl"
         style={{ backgroundImage: "url(/user-buble-bg.png)" }}
       >
         <div className="w-full flex items-center relative h-full ">
@@ -71,7 +71,7 @@ export const InputField = ({
         {!userInput.message && (
           <p className="text-xs md:text-base text-[var(--neutral-400)] pb-4 text-center">
             VCTR can make mistakes, try to ask concise and precise questions for
-            a better experience. Thank you!❤️
+            a better experience❤️!
           </p>
         )}
       </form>
