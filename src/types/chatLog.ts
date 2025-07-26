@@ -14,10 +14,15 @@ export type UserInputState = {
   isValid: boolean;
 };
 
-export type SearchBarProps = {
-  submitPrompt: (message: string) => Promise<string | undefined>;
+export type InputFieldProps = {
+  sendChatMessage: (
+    message: string,
+    category?: string,
+    projectsData?: ProjectItem[]
+  ) => Promise<string | undefined>;
   userInput: UserInputState;
   setUserInput: React.Dispatch<React.SetStateAction<UserInputState>>;
+  fetchProjects: () => Promise<ProjectItem[]>;
 };
 // ....................CHAT BUBBLE TYPES....................
 

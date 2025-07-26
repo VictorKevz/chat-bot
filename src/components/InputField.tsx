@@ -1,19 +1,21 @@
-import { OnChangeType, OnSubmitType, SearchBarProps } from "../types/chatLog";
+import { OnChangeType, OnSubmitType, InputFieldProps } from "../types/chatLog";
 import { ArrowUpward } from "@mui/icons-material";
+import { detectProjectIntent } from "../utils/intentDetection";
+import { ProjectItem } from "../types/projects";
 
 export const InputField = ({
-  submitPrompt,
+  sendChatMessage,
   userInput,
   setUserInput,
-}: SearchBarProps) => {
+  fetchProjects,
+}: InputFieldProps) => {
   const handleChange = (e: OnChangeType) => {
     setUserInput({
       message: e.target.value,
       isValid: true,
     });
   };
-
-  const handleSubmit = (e: OnSubmitType) => {
+  const handleSubmit = async (e: OnSubmitType) => {
     e.preventDefault();
     const trimmedValue = userInput.message.trim();
     if (!trimmedValue && trimmedValue.length <= 5) {
@@ -23,7 +25,16 @@ export const InputField = ({
       }));
       return;
     }
-    submitPrompt(userInput.message);
+
+    // Detect if user is asking about projects
+    const isProjectQuery = detectProjectIntent(trimmedValue);
+    let projectsData: ProjectItem[] | undefined;
+
+    if (isProjectQuery) {
+      projectsData = await fetchProjects();
+    }
+
+    await sendChatMessage(userInput.message, undefined, projectsData);
     setUserInput({
       message: "",
       isValid: true,
@@ -47,6 +58,12 @@ export const InputField = ({
               id="message"
               value={userInput.message}
               onChange={(e: OnChangeType) => handleChange(e)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e as any);
+                }
+              }}
               placeholder="Ask anything..."
               className={`w-full h-full text-[var(--neutral-1000)] text-base font-medium p-6 resize-none custom-scrollbar ${
                 !userInput.isValid

@@ -139,9 +139,10 @@ export const Content = () => {
 
       <div className=" max-w-screen-lg w-full px-4 fixed z-20 bottom-4">
         <InputField
-          submitPrompt={sendChatMessage}
+          sendChatMessage={sendChatMessage}
           userInput={userInput}
           setUserInput={setUserInput}
+          fetchProjects={fetchProjects}
         />
       </div>
       <AnimatePresence mode="wait">
