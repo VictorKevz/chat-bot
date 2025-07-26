@@ -9,11 +9,15 @@ import { UserInputState } from "../types/chatLog";
 import { AnimatePresence, motion } from "framer-motion";
 import { useProjects } from "../hooks/useProjects";
 import { RiseLoaderWrapper } from "../loaders/Loaders";
+import { EmptyProjectItem, ProjectItem } from "../types/projects";
+import { ProjectDialog } from "./projects/ProjectDialog";
 
 export const Content = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [showFaqs, setShowFaqs] = useState(false);
+  const [isActivelyScrolling, setIsActivelyScrolling] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const [userInput, setUserInput] = useState<UserInputState>({
     message: "",
@@ -22,6 +26,20 @@ export const Content = () => {
 
   const { sendChatMessage, chatLog, loading } = useChat();
   const { fetchProjects, projectsLoading } = useProjects();
+
+  const [showProjectDialog, setShowProjectDialog] = useState(false);
+  const [currentProject, setCurrentProject] =
+    useState<ProjectItem>(EmptyProjectItem);
+
+  const toggleProjectDialog = useCallback((data?: ProjectItem) => {
+    setCurrentProject(() => {
+      if (showProjectDialog || !data) {
+        return EmptyProjectItem;
+      }
+      return data;
+    });
+    setShowProjectDialog((prev) => !prev);
+  }, []);
   const isEmpty = chatLog.length === 0;
 
   // Auto-scroll to bottom when new messages arrive
@@ -40,6 +58,13 @@ export const Content = () => {
       const { scrollTop, scrollHeight, clientHeight } = sectionRef.current;
       const isAtBottom = scrollHeight - scrollTop <= clientHeight + 50; // 50px threshold
       setShowScrollButton(!isAtBottom);
+
+      // Detect active scrolling
+      setIsActivelyScrolling(true);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsActivelyScrolling(false);
+      }, 200);
     }
   };
 
@@ -100,7 +125,7 @@ export const Content = () => {
         ) : (
           <div className="w-full flex flex-col gap-4 items-center justify-between pt-4">
             {chatLog.map((data, i) => (
-              <ChatBubble key={i} data={data} />
+              <ChatBubble key={i} data={data} onToggle={toggleProjectDialog} />
             ))}
             {loading && <LoadingBubble />}
             <div className="w-full mx-auto">
@@ -109,7 +134,7 @@ export const Content = () => {
           </div>
         )}
         <div
-          className={`fixed bottom-[25dvh] z-50 rounded-full p-px  2xl:scale-100 ${
+          className={`fixed bottom-[30dvh] sm:bottom-[25dvh] z-50 rounded-full p-px  2xl:scale-100 ${
             isEmpty ? "opacity-100 scale-100" : "opacity-75 scale-65"
           }`}
           style={{ background: "var(--yellow-gradient)" }}
@@ -137,16 +162,24 @@ export const Content = () => {
         </button>
       )}
 
-      <div className=" max-w-screen-lg w-full px-4 fixed z-20 bottom-4">
+      <div className={`w-full px-4 fixed z-20 bottom-4 max-w-screen-lg `}>
         <InputField
           sendChatMessage={sendChatMessage}
           userInput={userInput}
           setUserInput={setUserInput}
           fetchProjects={fetchProjects}
         />
+        {isActivelyScrolling && (
+          <div className="fixed bottom-0 left-0 w-screen h-[15vh] backdrop-blur-[.5rem] -z-1"></div>
+        )}
       </div>
       <AnimatePresence mode="wait">
         {showFaqs && <FAQs onCloseFAQs={toggleFAQS} onUpdate={OnFAQsUpdate} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showProjectDialog && (
+          <ProjectDialog data={currentProject} onToggle={toggleProjectDialog} />
+        )}
       </AnimatePresence>
     </div>
   );

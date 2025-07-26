@@ -2,7 +2,7 @@
 
 @import "tailwindcss";
 :root {
-  --neutral-0: #0f0f0f;
+  --neutral-0: #0c0c0c;
   --neutral-100: #333339;
   --neutral-200: #333334;
   --neutral-300: #2b2b2c;
@@ -13,7 +13,7 @@
   --neutral-900: #fcf8f8ea;
   --neutral-1000: #fff;
   --border: #e4f1ff;
-  --error: #e77e7e;
+  --error: #de7474;
 
   --primary-color: #0cc0df;
   --secondary-color: #ffde59d4;
@@ -36,8 +36,7 @@ h3 {
   font-weight: bold;
   transition: 0.3s ease-in-out;
 }
-button,
-a {
+button {
   display: flex;
   align-items: center;
   justify-content: center;

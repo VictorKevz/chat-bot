@@ -28,7 +28,7 @@ export type InputFieldProps = {
 
 export type ChatBubbleProps = {
   data: ChatPair;
-  loading: boolean;
+  onToggle: (data?: ProjectItem) => void;
 };
 
 export type FAQsProps = {

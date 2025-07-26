@@ -28,4 +28,10 @@ export const EmptyProjectItem: ProjectItem = {
 
 export type ProjectPreviewProps = {
   data: ProjectItem;
+  onToggle: (data?: ProjectItem) => void;
+};
+
+export type ProjectDialogProps = {
+  data: ProjectItem;
+  onToggle: (data?: ProjectItem) => void;
 };

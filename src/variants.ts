@@ -1,10 +1,11 @@
 import { Variants } from "framer-motion";
 
 export const ModalVariants = (i: number): Variants => ({
-  hidden: { y: i, opacity: 0 },
+  hidden: { y: i, opacity: 0, scale: 0.9 },
   visible: {
     y: 0,
     opacity: 1,
+    scale: 1,
     transition: {
       type: "tween" as const,
       ease: "easeInOut",

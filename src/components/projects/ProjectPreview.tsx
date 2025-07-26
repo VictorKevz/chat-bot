@@ -1,6 +1,6 @@
 import { ProjectPreviewProps } from "../../types/projects";
 
-export const ProjectPreview = ({ data }: ProjectPreviewProps) => {
+export const ProjectPreview = ({ data, onToggle }: ProjectPreviewProps) => {
   const { title, image_urls: images, live_url } = data;
   return (
     <div className="w-full flex flex-col items-center px-4 pb-6 bg-[var(--neutral-600)] rounded-xl">
@@ -14,6 +14,7 @@ export const ProjectPreview = ({ data }: ProjectPreviewProps) => {
       <div className="w-full flex items-center justify-between gap-5 my-5">
         <button
           type="button"
+          onClick={() => onToggle(data)}
           className="h-10 min-w-fit md:max-w-[130px] w-full rounded-xl bg-gradient-to-r from-[var(--secondary-color)] to-[var(--primary-color)]"
         >
           Learn More
@@ -21,7 +22,7 @@ export const ProjectPreview = ({ data }: ProjectPreviewProps) => {
         <a
           href={live_url}
           target="_blank"
-          className="h-10 min-w-fit md:max-w-[130px] w-full rounded-xl bg-[var(--neutral-0)] text-[var(--secondary-color)] border border-[var(--secondary-color)]"
+          className="h-10 flex items-center justify-center min-w-fit md:max-w-[130px] w-full rounded-xl bg-[var(--neutral-0)] text-[var(--secondary-color)] border border-[var(--secondary-color)]"
         >
           Demo
         </a>
@@ -33,3 +34,5 @@ export const ProjectPreview = ({ data }: ProjectPreviewProps) => {
     </div>
   );
 };
+
+export const ProjectDialogWrapper = () => {};

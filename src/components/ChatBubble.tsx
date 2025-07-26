@@ -1,15 +1,14 @@
 import { Person, SmartToy } from "@mui/icons-material";
 import { AIBubble } from "./AIBubble";
 import { parseTextWithLinks } from "../utils/textFormatter";
-import { ChatPair } from "../types/chatLog";
+import { ChatBubbleProps } from "../types/chatLog";
 import { ProjectPreview } from "./projects/ProjectPreview";
 
-export const ChatBubble = ({ data }: { data: ChatPair }) => {
+export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
   const isUser = data.role === "user";
   const hasProjects = Boolean(
     data.projectsData && data.projectsData.length > 0
   );
-
   // Here I only parse links for AI messages
   const renderContent = (text: string) => {
     if (isUser) {
@@ -93,7 +92,11 @@ export const ChatBubble = ({ data }: { data: ChatPair }) => {
             {hasProjects && (
               <div className="w-full grid gap-16 sm:gap-8 sm:grid-cols-2 my-8 pt-12 border-t border-gray-400/40">
                 {data.projectsData!.map((project) => (
-                  <ProjectPreview key={project.id} data={project} />
+                  <ProjectPreview
+                    key={project.id}
+                    data={project}
+                    onToggle={onToggle}
+                  />
                 ))}
               </div>
             )}

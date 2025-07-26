@@ -40,7 +40,7 @@ export const FAQs = ({ onCloseFAQs, onUpdate }: FAQsProps) => {
         className={`relative bg-[var(--neutral-0)] border-t border-[var(--border)] ${
           isEmpty
             ? "h-fit"
-            : "h-[calc(100dvh-20dvh)] 2xl:h-[calc(100dvh-40dvh)]"
+            : "lg:h-[calc(100dvh-20dvh)] 2xl:h-[calc(100dvh-40dvh)]"
         }  w-full flex flex-col items-center justify-between px-4 py-8 rounded-t-[2rem] overflow-auto custom-scrollbar`}
       >
         <h2 className="text-2xl md:text-4xl text-white text-center mb-7">
