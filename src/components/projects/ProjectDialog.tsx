@@ -68,7 +68,7 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
               {icons.map((icon) => (
                 <li
                   key={icon}
-                  className="flex items-center justify-center rounded-full bg-[var(--neutral-0)] border border-[var(--border)] h-12 w-12 not-first:-ml-4"
+                  className="flex items-center justify-center rounded-full bg-[var(--neutral-0)] last:bg-white/50 border border-[var(--border)] h-12 w-12 not-first:-ml-4"
                 >
                   <img src={icon} className="w-8 " alt="" />
                 </li>
@@ -97,23 +97,30 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
             })}
           </ul>
         </div>
-        <ul className="w-full rounded-xl bg-[var(--neutral-0)] border border-[var(--border)] px-6 py-8 shadow-amber-200/5 shadow-md">
-          <li>
-            <h2 className="text-3xl text-white mb-2">Main Features</h2>
-          </li>
-          {features.map((feature) => (
-            <li
-              key={feature}
-              className="text-white/90 not-first:mt-2 text-base flex items-center gap-1"
-            >
-              <CheckCircle
-                className="rounded-full text-black opacity-80"
-                style={{ background: "var(--yellow-gradient)" }}
-              />
-              {feature}
+        <div className="w-full flex flex-col xl:flex-row xl:items-start gap-8 justify-between rounded-xl bg-[var(--neutral-0)] border border-[var(--border)] px-6 xl:pl-6 py-8 shadow-amber-200/5 shadow-md">
+          <ul className="w-full xl:w-[50%] flex flex-col">
+            <li>
+              <h2 className="text-3xl text-white mb-2">Main Features</h2>
             </li>
-          ))}
-        </ul>
+            {features.map((feature) => (
+              <li
+                key={feature}
+                className="text-white/90 not-first:mt-2 flex items-center gap-1 text-sm sm:text-base"
+              >
+                <CheckCircle
+                  className="rounded-full text-black opacity-80"
+                  style={{ background: "var(--yellow-gradient)" }}
+                />
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <img
+            src={images[images.length - 1]}
+            className="h-full w-full xl:w-[50%] rounded-xl xl:rounded-l-3xl"
+            alt=""
+          />
+        </div>
         <div className="w-full bg-transparent border border-[var(--border)] rounded-xl px-6 py-8 shadow-amber-200/5 shadow-md">
           <h2 className="text-3xl text-white">Image Gallery</h2>
           <ul className="w-full grid lg:grid-cols-3 gap-8 mt-6">
