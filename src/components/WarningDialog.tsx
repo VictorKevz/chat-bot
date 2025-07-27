@@ -31,6 +31,7 @@ export const WarningDialog = ({ onDelete, onCancel }: WarningDialogProps) => {
           </div>
           <button
             type="button"
+            onClick={onCancel}
             className="absolute right-0 top-0 text-black bg-[var(--neutral-800)] p-1 rounded-bl-lg"
           >
             <Close fontSize="medium" />
