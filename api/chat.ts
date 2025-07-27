@@ -150,12 +150,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         profileData.profile
       )}. Here's relevant ${category} data: ${JSON.stringify(
         profileData[category]
-      )}. Answer questions about Victor using this information. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc. More importantly if the user is asking about projects or tech stack remember to add a statement like:'Check below some of his projects'. I will render the projects previews."`;
+      )}. Answer questions about Victor using this information. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc."`;
     } else {
       // Intent-driven: Use the complete structured data
       systemContent = `You are an AI assistant for Victor and your user name is VCTR. Here is Victor's complete data: ${JSON.stringify(
         profileData
-      )}. Answer questions about Victor using this information. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc. More importantly if the user is asking about projects or tech stack remember to add a statement like:'Check below some of his projects'. I will render the projects previews."`;
+      )}. Answer questions about Victor using this information. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc."`;
     }
 
     const systemMessage = {
@@ -198,7 +198,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           model: "llama-3.3-70b-versatile",
           messages: allMessages,
           max_tokens: 1000,
-          temperature: 0.7,
+          temperature: 0.9,
         }),
       }
     );
