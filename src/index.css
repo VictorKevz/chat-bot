@@ -22,7 +22,7 @@
   --yellow-gradient: linear-gradient(to right, #0cc0df, #ffde59d4);
   --purple-gradient: linear-gradient(to right, #8c52ff, #5ce1e6);
 
-  --bg-main: #000000;
+  --bg-main: #875ddb;
 }
 
 *,
@@ -41,10 +41,13 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font-weight: 500;
 }
 
 a {
   text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
 }
 p {
   line-height: 1.5;

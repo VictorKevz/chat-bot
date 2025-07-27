@@ -9,14 +9,14 @@ export const ProjectPreview = ({ data, onToggle }: ProjectPreviewProps) => {
         <button
           type="button"
           onClick={() => onToggle(data)}
-          className="h-10 min-w-fit md:max-w-[130px] w-full rounded-xl bg-gradient-to-r from-[var(--secondary-color)] to-[var(--primary-color)]"
+          className="h-10 min-w-fit md:max-w-[130px] w-full rounded-xl bg-gradient-to-r from-[var(--secondary-color)] to-[var(--primary-color)] hover:from-[#8c52ff] hover:to-[#5ce1e6] hover:-translate-0.5 hover:scale-105"
         >
           Learn More
         </button>
         <a
           href={live_url}
           target="_blank"
-          className="h-10 flex items-center justify-center min-w-fit md:max-w-[130px] w-full rounded-xl bg-[var(--neutral-0)] text-[var(--secondary-color)] border border-[var(--secondary-color)]"
+          className="h-10 flex items-center justify-center min-w-fit md:max-w-[130px] w-full rounded-xl bg-[var(--neutral-0)] text-[var(--secondary-color)] border border-[var(--secondary-color)] hover:border-0 hover:bg-gradient-to-r hover:from-[#0cc0df] hover:to-[#ffde59d4] hover:text-black/90 hover:-translate-0.5 hover:scale-105"
         >
           Demo
         </a>

@@ -7,16 +7,25 @@ import { ModalVariants } from "../variants";
 import { faqsData } from "../data/faqsData";
 
 export const FAQs = ({ onCloseFAQs, onUpdate }: FAQsProps) => {
-  const [categories, setCategories] = useState(["Projects"]);
+  const [categories, setCategories] = useState<string[]>(() => {
+    const faqs = localStorage.getItem("faqs");
+    return faqs ? JSON.parse(faqs) : [];
+  });
 
   const updateCategories = (category: string) => {
     setCategories((prev) => {
       const exists = prev.some((c: string) => c === category);
 
+      let newCategories;
       if (exists) {
-        return prev.filter((c) => c !== category);
+        newCategories = prev.filter((c) => c !== category);
+      } else {
+        newCategories = [...prev, category];
       }
-      return [...prev, category];
+
+      // Save to localStorage
+      localStorage.setItem("faqs", JSON.stringify(newCategories));
+      return newCategories;
     });
   };
 

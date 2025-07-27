@@ -16,7 +16,7 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
   } = data;
 
   const getColor = (i: number) => {
-    const colors = ["#0cc0df", "#ffde59d4", "#8c52ff", "#5ce1e6", "#de7474"];
+    const colors = ["#0cc0df", "#ffde59d4", "#875ddb", "#5ce1e6", "#de7474"];
     if (i >= 0 && i < colors.length) {
       return colors[i];
     }
@@ -37,19 +37,23 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
         className="max-w-screen-xl w-full flex flex-col items-center gap-5 m-0 bg-transparent relative"
       >
         <header className="w-full relative bg-transparent border border-[var(--border)] rounded-xl px-6 py-8 shadow-amber-200/5 shadow-md">
-          <h2 className="text-4xl text-white">{title}</h2>
-          <p className="text-lg text-white/80 mt-2">{description}</p>
+          <h2 className="text-3xl md:text-4xl mt-6 sm:mt-0 text-white">
+            {title}
+          </h2>
+          <p className="text-sm sm:text-lg text-white/80 mt-2 w-[90%]">
+            {description}
+          </p>
           <button
             type="button"
             onClick={() => onToggle()}
-            className="h-12 w-12 absolute right-6 top-6 2xl:fixed bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] rounded-full"
+            className="h-12 w-12 absolute right-4 top-4 scale-80 xl:scale-100 2xl:fixed bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] rounded-xl hover:from-[#8c52ff] hover:to-[#5ce1e6] hover:-translate-0.5 hover:scale-105"
           >
             <Close />
           </button>
         </header>
         <div className="w-full px-6 py-8 bg-[var(--neutral-100)] rounded-xl shadow-xl">
           <h3 className="text-3xl text-white">Tech Stack</h3>
-          <div className="w-full flex items-center justify-between gap-6">
+          <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-6">
             <ul className="w-full flex items-center gap-4 mt-4 flex-wrap">
               {techStack.map((item, i) => {
                 const color = getColor(i);
@@ -57,7 +61,7 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
                   <li
                     key={item}
                     style={{ backgroundColor: `${color}` }}
-                    className={`px-4 h-10 flex items-center font-medium text-[var(--neutral-0)] rounded-xl`}
+                    className={`px-4 max-w-[9rem] w-full h-10 flex items-center justify-center font-medium text-[var(--neutral-0)] rounded-xl scale-80 sm:scale-100`}
                   >
                     {item}
                   </li>
@@ -97,7 +101,7 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
             })}
           </ul>
         </div>
-        <div className="w-full flex flex-col xl:flex-row xl:items-start gap-8 justify-between rounded-xl bg-[var(--neutral-0)] border border-[var(--border)] px-6 xl:pl-6 py-8 shadow-amber-200/5 shadow-md">
+        <div className="w-full flex flex-col xl:flex-row xl:items-start gap-8 justify-between rounded-xl bg-[var(--neutral-0)] border border-[var(--border)] px-6 xl:pl-6 xl:px-0 py-8 shadow-amber-200/5 shadow-md">
           <ul className="w-full xl:w-[50%] flex flex-col">
             <li>
               <h2 className="text-3xl text-white mb-2">Main Features</h2>
