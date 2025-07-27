@@ -31,16 +31,7 @@ export const FAQs = ({ onCloseFAQs, onUpdate }: FAQsProps) => {
 
   const isEmpty = categories.length === 0;
   return (
-    <div className="w-full h-dvh fixed top-0 flex flex-col items-center justify-end gap-10 bg-[#0000003b] backdrop-blur-[.2rem] z-50">
-      <button
-        type="button"
-        onClick={onCloseFAQs}
-        className={`bg-white rounded-full w-12 h-12 absolute ${
-          isEmpty ? "top-[20dvh]" : "top-[10dvh] 2xl:top-[30dvh]"
-        }`}
-      >
-        <Close fontSize="large" />
-      </button>
+    <div className="w-full h-dvh fixed top-0 flex flex-col items-center justify-end gap-10 bg-[#0000003b] backdrop-blur-[.2rem] z-50 overflow-auto">
       <motion.dialog
         variants={ModalVariants(50)}
         initial="hidden"
@@ -50,11 +41,20 @@ export const FAQs = ({ onCloseFAQs, onUpdate }: FAQsProps) => {
           isEmpty
             ? "h-fit"
             : "lg:h-[calc(100dvh-20dvh)] 2xl:h-[calc(100dvh-40dvh)]"
-        }  w-full flex flex-col items-center justify-between px-4 py-8 rounded-t-[2rem] overflow-auto custom-scrollbar`}
+        }  w-full flex flex-col items-center justify-between px-4 pb-8 rounded-t-[2rem] overflow-auto custom-scrollbar`}
       >
-        <h2 className="text-2xl md:text-4xl text-white text-center mb-7">
-          Here are some FAQS
-        </h2>
+        <header className="w-full relative py-5">
+          <h2 className="text-2xl md:text-4xl text-white text-center mt-10 sm:mt-4">
+            Here are some FAQS
+          </h2>
+          <button
+            type="button"
+            onClick={onCloseFAQs}
+            className={`bg-white absolute rounded-xl w-12 h-12 scale-65 top-3 right-0 `}
+          >
+            <Close fontSize="large" />
+          </button>
+        </header>
 
         <ul className="max-w-screen-2xl w-full grid md:grid-cols-2 2xl:grid-cols-3 gap-5">
           {faqsData.map((faq) => {
