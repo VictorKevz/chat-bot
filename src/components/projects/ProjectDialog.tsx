@@ -61,7 +61,7 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
                   <li
                     key={item}
                     style={{ backgroundColor: `${color}` }}
-                    className={`px-4 max-w-[9rem] w-full h-10 flex items-center justify-center font-medium text-[var(--neutral-0)] rounded-xl scale-80 sm:scale-100`}
+                    className={`px-4 h-10 flex items-center justify-center font-medium text-[var(--neutral-0)] rounded-xl scale-80 sm:scale-100`}
                   >
                     {item}
                   </li>

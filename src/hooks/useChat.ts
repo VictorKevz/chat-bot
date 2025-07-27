@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ChatPair } from "../types/chatLog";
 import { ProjectItem } from "../types/projects";
 
@@ -59,11 +59,16 @@ export const useChat = () => {
       setLoading(false);
     }
   };
+  const DeleteChat = useCallback(() => {
+    setChatLog([]);
+    localStorage.removeItem("chats");
+  }, []);
 
   return {
     sendChatMessage,
     loading,
     error,
     chatLog,
+    onChatDelete: DeleteChat,
   };
 };

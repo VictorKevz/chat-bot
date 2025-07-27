@@ -2,7 +2,7 @@ import { useChat } from "../hooks/useChat";
 import { ChatBubble } from "./ChatBubble";
 import { InputField } from "./InputField";
 import { LoadingBubble } from "./LoadingBubble";
-import { ArrowDownward, KeyboardArrowDown } from "@mui/icons-material";
+import { ArrowDownward, DeleteForever, Quiz } from "@mui/icons-material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FAQs } from "./FAQs";
 import { UserInputState } from "../types/chatLog";
@@ -11,11 +11,14 @@ import { useProjects } from "../hooks/useProjects";
 import { RiseLoaderWrapper } from "../loaders/Loaders";
 import { EmptyProjectItem, ProjectItem } from "../types/projects";
 import { ProjectDialog } from "./projects/ProjectDialog";
+import { SvgIconComponent } from "@mui/icons-material";
+import { WarningDialog } from "./WarningDialog";
 
 export const Content = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [showFaqs, setShowFaqs] = useState(false);
+  const [showWarningDialog, setShowWarningDialog] = useState(false);
   const [isActivelyScrolling, setIsActivelyScrolling] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -24,7 +27,7 @@ export const Content = () => {
     isValid: true,
   });
 
-  const { sendChatMessage, chatLog, loading } = useChat();
+  const { sendChatMessage, chatLog, onChatDelete, loading } = useChat();
   const { fetchProjects, projectsLoading } = useProjects();
 
   const [showProjectDialog, setShowProjectDialog] = useState(false);
@@ -95,7 +98,13 @@ export const Content = () => {
     },
     [fetchProjects, sendChatMessage]
   );
-
+  const toggleWarningDialog = () => {
+    setShowWarningDialog((prev) => !prev);
+  };
+  const handleChatDelete = useCallback(() => {
+    onChatDelete();
+    toggleWarningDialog();
+  }, []);
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <section
@@ -133,23 +142,6 @@ export const Content = () => {
             </div>
           </div>
         )}
-        <div
-          className={`fixed bottom-[30dvh] sm:bottom-[25dvh] z-50 rounded-full p-px  2xl:scale-100 ${
-            isEmpty ? "opacity-100 scale-100" : "opacity-75 scale-65"
-          }`}
-          style={{ background: "var(--yellow-gradient)" }}
-        >
-          <button
-            type="button"
-            className="text-white text-lg  bg-[var(--neutral-0)] py-3 px-5 rounded-full"
-            onClick={toggleFAQS}
-          >
-            See some FAQs
-            <span className="text-[var(--primary-color)] scale-120">
-              <KeyboardArrowDown />
-            </span>
-          </button>
-        </div>
       </section>
 
       {showScrollButton && (
@@ -162,7 +154,23 @@ export const Content = () => {
         </button>
       )}
 
-      <div className={`w-full px-4 fixed z-20 bottom-4 max-w-screen-lg `}>
+      <div
+        className={`w-full px-4 fixed z-20 bottom-4 max-w-screen-lg flex flex-col gap-2`}
+      >
+        <div className="w-full flex items-center justify-end gap-2">
+          {!isEmpty && (
+            <ChatButton
+              icon={DeleteForever}
+              onToggle={toggleWarningDialog}
+              color="var(--error)"
+            />
+          )}
+          <ChatButton
+            icon={Quiz}
+            onToggle={toggleFAQS}
+            color="var(--primary-color)"
+          />
+        </div>
         <InputField
           sendChatMessage={sendChatMessage}
           userInput={userInput}
@@ -181,6 +189,36 @@ export const Content = () => {
           <ProjectDialog data={currentProject} onToggle={toggleProjectDialog} />
         )}
       </AnimatePresence>
+      <AnimatePresence>
+        {showWarningDialog && (
+          <WarningDialog
+            onDelete={handleChatDelete}
+            onCancel={toggleWarningDialog}
+          />
+        )}
+      </AnimatePresence>
     </div>
+  );
+};
+type ChatButtonProps = {
+  onToggle: () => void;
+  icon: SvgIconComponent;
+  color: string;
+};
+export const ChatButton = ({
+  onToggle,
+  icon: Icon,
+  color,
+}: ChatButtonProps) => {
+  return (
+    <button
+      type="button"
+      className={`text-white text-lg  bg-[var(--neutral-0)] h-12 w-14 rounded-xl border border-[var(--border)] hover:bg-[${color}]`}
+      onClick={onToggle}
+    >
+      <span className={`text-[${color}]`}>
+        <Icon />
+      </span>
+    </button>
   );
 };

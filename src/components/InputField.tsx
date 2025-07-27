@@ -42,7 +42,7 @@ export const InputField = ({
   };
   return (
     <div
-      className="p-px rounded-2xl"
+      className="p-px rounded-2xl w-full"
       style={{ background: "var(--purple-gradient)" }}
     >
       <form
