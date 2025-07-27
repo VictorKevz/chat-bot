@@ -1,4 +1,4 @@
-import { Close, KeyboardArrowRight } from "@mui/icons-material";
+import { CheckCircle, Close, KeyboardArrowRight } from "@mui/icons-material";
 import { ProjectDialogProps } from "../../types/projects";
 import { motion } from "framer-motion";
 import { ModalVariants } from "../../variants";
@@ -8,7 +8,9 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
     title,
     image_urls: images,
     description,
+    features,
     tech_stack: techStack,
+    icons,
     live_url: live,
     github_url: github,
   } = data;
@@ -47,20 +49,32 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
         </header>
         <div className="w-full px-6 py-8 bg-[var(--neutral-100)] rounded-xl shadow-xl">
           <h3 className="text-3xl text-white">Tech Stack</h3>
-          <ul className="w-full flex items-center gap-4 mt-4 flex-wrap">
-            {techStack.map((item, i) => {
-              const color = getColor(i);
-              return (
+          <div className="w-full flex items-center justify-between gap-6">
+            <ul className="w-full flex items-center gap-4 mt-4 flex-wrap">
+              {techStack.map((item, i) => {
+                const color = getColor(i);
+                return (
+                  <li
+                    key={item}
+                    style={{ backgroundColor: `${color}` }}
+                    className={`px-4 h-10 flex items-center font-medium text-[var(--neutral-0)] rounded-xl`}
+                  >
+                    {item}
+                  </li>
+                );
+              })}
+            </ul>
+            <ul className="flex">
+              {icons.map((icon) => (
                 <li
-                  key={item}
-                  style={{ backgroundColor: `${color}` }}
-                  className={`px-4 h-10 flex items-center font-medium text-[var(--neutral-0)] rounded-xl`}
+                  key={icon}
+                  className="flex items-center justify-center rounded-full bg-[var(--neutral-0)] border border-[var(--border)] h-12 w-12 not-first:-ml-4"
                 >
-                  {item}
+                  <img src={icon} className="w-8 " alt="" />
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+          </div>
           <ul className="w-full flex flex-col gap-3 mt-6 py-5 border-t border-[#ffffff38]">
             <li>
               <h3 className="text-white text-2xl">Links</h3>
@@ -70,6 +84,7 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
                 <li key={link.text}>
                   <a
                     href={link.url}
+                    target="_blank"
                     className="w-full flex items-center justify-between px-5 text-white/90 gap-5 bg-[var(--neutral-0)] h-12 rounded-xl"
                   >
                     {link.text}
@@ -82,8 +97,25 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
             })}
           </ul>
         </div>
+        <ul className="w-full rounded-xl bg-[var(--neutral-0)] border border-[var(--border)] px-6 py-8 shadow-amber-200/5 shadow-md">
+          <li>
+            <h2 className="text-3xl text-white mb-2">Main Features</h2>
+          </li>
+          {features.map((feature) => (
+            <li
+              key={feature}
+              className="text-white/90 not-first:mt-2 text-base flex items-center gap-1"
+            >
+              <CheckCircle
+                className="rounded-full text-black opacity-80"
+                style={{ background: "var(--yellow-gradient)" }}
+              />
+              {feature}
+            </li>
+          ))}
+        </ul>
         <div className="w-full bg-transparent border border-[var(--border)] rounded-xl px-6 py-8 shadow-amber-200/5 shadow-md">
-          <h2 className="text-4xl text-white">Image Gallery</h2>
+          <h2 className="text-3xl text-white">Image Gallery</h2>
           <ul className="w-full grid lg:grid-cols-3 gap-8 mt-6">
             {images.map((image, i) => {
               const isFirst = i === 0;
@@ -91,7 +123,7 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
               return (
                 <li
                   key={image}
-                  className={`w-full rounded-xl min-h-[20rem] bg-top bg-cover shadow-white/20 shadow-2xl lg:last:col-span-3 lg:nth-[3]:col-span-2 ${
+                  className={`w-full rounded-xl min-h-[20rem] bg-top bg-cover border border-[var(--border)] shadow-white/20 shadow-2xl lg:last:col-span-3 lg:nth-[3]:col-span-2 ${
                     isFirst && "lg:col-span-2"
                   }`}
                   style={{ backgroundImage: `url(${image})` }}

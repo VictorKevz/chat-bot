@@ -150,12 +150,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         profileData.profile
       )}. Here's relevant ${category} data: ${JSON.stringify(
         profileData[category]
-      )}. Answer questions about Victor using this information. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc"`;
+      )}. Answer questions about Victor using this information. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc. More importantly if the user is asking about projects or tech stack remember to add a statement like:'Check below some of his projects'. I will render the projects previews."`;
     } else {
       // Intent-driven: Use the complete structured data
       systemContent = `You are an AI assistant for Victor and your user name is VCTR. Here is Victor's complete data: ${JSON.stringify(
         profileData
-      )}. Always use this information to answer questions about Victor. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc"`;
+      )}. Answer questions about Victor using this information. Do not respond with statements like "Based on..., According to... etc. Instead just answer directly without indicating any source. Remember to always keep your responses concise unless explicitly asked to provide more details and explanations. Use a friendly tone. Always format links with https like his website, linked, github etc. More importantly if the user is asking about projects or tech stack remember to add a statement like:'Check below some of his projects'. I will render the projects previews."`;
     }
 
     const systemMessage = {

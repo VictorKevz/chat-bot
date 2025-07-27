@@ -68,11 +68,11 @@ export const NavBar = () => {
                 <a
                   href={item.url}
                   target="_blank"
-                  className="bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] p-px rounded-full"
+                  className=" p-px rounded-full"
                 >
                   <item.icon
                     fontSize="large"
-                    className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] rounded-full p-1 hover:bg-none"
+                    className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] rounded-full p-1"
                   />
                 </a>
               </li>

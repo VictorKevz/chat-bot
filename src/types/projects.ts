@@ -3,6 +3,7 @@ export type ProjectItem = {
   title: string;
   description: string;
   image_urls: string[];
+  features: string[];
   icons: string[];
   tech_stack: string[];
   highlighted: boolean;
@@ -17,6 +18,7 @@ export const EmptyProjectItem: ProjectItem = {
   title: "",
   description: "",
   image_urls: [],
+  features: [],
   icons: [],
   tech_stack: [],
   highlighted: false,
