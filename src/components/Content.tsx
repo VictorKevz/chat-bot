@@ -34,15 +34,18 @@ export const Content = () => {
   const [currentProject, setCurrentProject] =
     useState<ProjectItem>(EmptyProjectItem);
 
-  const toggleProjectDialog = useCallback((data?: ProjectItem) => {
-    setCurrentProject(() => {
-      if (showProjectDialog || !data) {
-        return EmptyProjectItem;
-      }
-      return data;
-    });
-    setShowProjectDialog((prev) => !prev);
-  }, []);
+  const toggleProjectDialog = useCallback(
+    (data?: ProjectItem) => {
+      setCurrentProject(() => {
+        if (showProjectDialog || !data) {
+          return EmptyProjectItem;
+        }
+        return data;
+      });
+      setShowProjectDialog((prev) => !prev);
+    },
+    [showProjectDialog]
+  );
   const isEmpty = chatLog.length === 0;
 
   // Auto-scroll to bottom when new messages arrive
@@ -104,7 +107,7 @@ export const Content = () => {
   const handleChatDelete = useCallback(() => {
     onChatDelete();
     toggleWarningDialog();
-  }, []);
+  }, [onChatDelete]);
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <section
