@@ -24,7 +24,10 @@ export const useSpeechToText = (
   }, []);
 
   const cancelRecording = useCallback(() => {
-    SpeechRecognition.stopListening();
+    // Stop speech recognition first
+    SpeechRecognition.abortListening();
+
+    // Then clean up state
     resetSpeechTranscript();
     setError(null);
   }, [resetSpeechTranscript]);
@@ -61,8 +64,13 @@ export const useSpeechToText = (
   }, [isSupported, language, resetSpeechTranscript]);
 
   const stopRecording = useCallback(() => {
-    SpeechRecognition.stopListening();
-  }, []);
+    console.log("stopRecording called, listening:", listening);
+
+    // Stop speech recognition first
+    SpeechRecognition.abortListening();
+
+    console.log("stopRecording completed");
+  }, [listening]);
 
   return {
     // State

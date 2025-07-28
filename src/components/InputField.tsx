@@ -12,8 +12,13 @@ export const InputField = ({
   setUserInput,
   fetchProjects,
 }: InputFieldProps) => {
-  const { isRecording, startRecording, stopRecording, transcript } =
-    useSpeechToText();
+  const {
+    isRecording,
+    startRecording,
+    stopRecording,
+    cancelRecording,
+    transcript,
+  } = useSpeechToText();
 
   const handleChange = (e: OnChangeType) => {
     setUserInput({
@@ -66,7 +71,7 @@ export const InputField = ({
         {isRecording ? (
           <div className="h-full w-full flex items-center justify-center p-4">
             <SpeechButton
-              onCancel={stopRecording}
+              onCancel={cancelRecording}
               onSubmit={submitRecording}
               transcript={transcript}
             />
