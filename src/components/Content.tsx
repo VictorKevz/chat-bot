@@ -162,7 +162,7 @@ export const Content = () => {
             <ChatButton
               icon={DeleteForever}
               onToggle={toggleWarningDialog}
-              color="var(--error)"
+              color="var(--secondary-color)"
             />
           )}
           <ChatButton
@@ -213,7 +213,7 @@ export const ChatButton = ({
   return (
     <button
       type="button"
-      className={`text-white text-lg  bg-[var(--neutral-0)] h-12 w-14 rounded-xl border border-[var(--border)] hover:bg-[${color}]`}
+      className={`text-white text-lg shadow-white/10 shadow-xl h-12 w-14 rounded-xl border border-[var(--border)] hover:bg-[${color}]`}
       onClick={onToggle}
     >
       <span className={`text-[${color}]`}>

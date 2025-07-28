@@ -11,8 +11,8 @@ export const AIBubble = ({ children, showProjects }: AIBubbleProps) => {
       <div
         className={` ${
           showProjects
-            ? "relative flex-col max-w-screen-md w-full rounded-l-[4rem] rounded-tr-[5rem] "
-            : "w-fit max-w-screen-sm rounded-tr-full rounded-br-lg rounded-tl-full rounded-bl-full"
+            ? "relative flex-col max-w-screen-md w-full rounded-l-[3rem] rounded-tr-xl "
+            : "w-fit max-w-screen-sm rounded-tr-[3rem] rounded-br-0 rounded-tl-3xl rounded-bl-2xl"
         }   flex items-center gap-2.5 px-6 py-5 bg-[var(--neutral-500)] `}
       >
         {children}
