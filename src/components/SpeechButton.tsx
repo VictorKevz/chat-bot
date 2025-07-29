@@ -1,5 +1,5 @@
 import { Check, Close } from "@mui/icons-material";
-import { SpeechButtonProps } from "../types/speech";
+import { SpeechButtonProps } from "../types/speechToText";
 import { ScaleLoader } from "react-spinners";
 
 export const SpeechButton = ({
