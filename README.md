@@ -13,29 +13,29 @@ I developed this full-stack chat application to demonstrate proficiency in moder
 ## Screenshots
 
 ### Main Chat Interface
-![Default Chat Interface](../public/screenshots/default.png)
+![Default Chat Interface](/public/screenshots/default.png)
 *Clean, modern chat interface with intuitive design*
 
 ### AI Conversations
-![General Chat](../public/screenshots/general-chat.png)
+![General Chat](/public/screenshots/general-chat.png)
 *Intelligent conversations powered by Groq's LLaMA models*
 
 ### Project Portfolio Integration
-![Projects Chat](../public/screenshots/projects-chat.png)
+![Projects Chat](/public/screenshots/projects-chat.png)
 *Dynamic project showcase with real-time data fetching*
 
-![Project Modal](../public/screenshots/project-modal.png)
+![Project Modal](/public/screenshots/project-modal.png)
 *Detailed project information in elegant modal design*
 
 ### Speech-to-Text Feature
-![Speech to Text](../public/screenshots/speech-to-text.png)
+![Speech to Text](/public/screenshots/speech-to-text.png)
 *Real-time audio transcription with visual feedback*
 
 ### Interactive Features
-![FAQs Active](../public/screenshots/faqs-active.png)
+![FAQs Active](/public/screenshots/faqs-active.png)
 *Interactive FAQ section for quick access to common questions*
 
-![Delete Modal](../public/screenshots/delete-modal.png)
+![Delete Modal](/public/screenshots/delete-modal.png)
 *Thoughtful confirmation dialogs for better user experience*
 
 ## Key Features
