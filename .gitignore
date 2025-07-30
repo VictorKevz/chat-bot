@@ -17,5 +17,4 @@ dist
 # Logs
 *.log
 
-# Screenshots (exclude from commits)
-public/screenshots/
+
