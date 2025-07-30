@@ -74,7 +74,7 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
       ) : (
         <div className={`${hasProjects ? "projects-showcase-bubble" : ""}`}>
           <AIBubble showProjects={hasProjects}>
-            <div className={`flex items-center gap-2 my-5`}>
+            <div className={`flex items-center gap-2`}>
               <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
                 <SmartToy
                   fontSize="medium"
