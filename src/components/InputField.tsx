@@ -2,7 +2,7 @@ import { OnChangeType, OnSubmitType, InputFieldProps } from "../types/chatLog";
 import { ArrowUpward, Mic } from "@mui/icons-material";
 import { detectProjectIntent } from "../utils/intentDetection";
 import { ProjectItem } from "../types/projects";
-import { SpeechButton } from "./SpeechButton";
+import { TranscribeButton } from "./TranscribeButton";
 import { useSpeechToText } from "../hooks/useSpeechToText";
 import { useEffect } from "react";
 import { RiseLoaderWrapper } from "../loaders/Loaders";
@@ -68,7 +68,7 @@ export const InputField = ({
   // Render recording state
   const renderRecordingState = () => (
     <div className="h-full w-full flex items-center justify-center p-4">
-      <SpeechButton
+      <TranscribeButton
         onCancel={cancelRecording}
         onSubmit={stopRecording}
         transcript={transcript}

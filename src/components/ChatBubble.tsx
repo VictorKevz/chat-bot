@@ -3,6 +3,7 @@ import { AIBubble } from "./AIBubble";
 import { parseTextWithLinks } from "../utils/textFormatter";
 import { ChatBubbleProps } from "../types/chatLog";
 import { ProjectPreview } from "./projects/ProjectPreview";
+import { AudioPlayer } from "./AudioPlayer";
 
 export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
   const isUser = data.role === "user";
@@ -72,36 +73,34 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
           </span>
         </div>
       ) : (
-        <div className={`${hasProjects ? "projects-showcase-bubble" : ""}`}>
-          <AIBubble showProjects={hasProjects}>
-            <div className={`flex items-center gap-2`}>
-              <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
-                <SmartToy
-                  fontSize="medium"
-                  className="text-[var(--neutral-0)]"
-                />
-              </span>
-              <p
-                className="text-white text-sm sm:text-lg w-[90%]"
-                style={{ whiteSpace: "normal", wordWrap: "break-word" }}
-              >
-                {renderContent(data.content)}
-              </p>
-            </div>
+        <AIBubble showProjects={hasProjects}>
+          <div className={`flex items-center gap-2 py-2`}>
+            <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
+              <SmartToy fontSize="medium" className="text-[var(--neutral-0)]" />
+            </span>
+            <p
+              className="text-white text-sm sm:text-lg w-[90%]"
+              style={{ whiteSpace: "normal", wordWrap: "break-word" }}
+            >
+              {renderContent(data.content)}
+            </p>
+          </div>
 
-            {hasProjects && (
-              <div className="w-full grid gap-8 sm:grid-cols-2 pt-6 border-t border-gray-400/40">
-                {data.projectsData!.map((project) => (
-                  <ProjectPreview
-                    key={project.id}
-                    data={project}
-                    onToggle={onToggle}
-                  />
-                ))}
-              </div>
-            )}
-          </AIBubble>
-        </div>
+          {hasProjects && (
+            <div className="w-full grid gap-8 sm:grid-cols-2 py-8 mt-6 border-t border-gray-400/40">
+              {data.projectsData!.map((project) => (
+                <ProjectPreview
+                  key={project.id}
+                  data={project}
+                  onToggle={onToggle}
+                />
+              ))}
+            </div>
+          )}
+          <div className="w-full flex justify-end absolute right-2 bottom-2">
+            <AudioPlayer text={data.content} />
+          </div>
+        </AIBubble>
       )}
     </div>
   );

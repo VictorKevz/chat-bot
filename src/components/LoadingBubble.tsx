@@ -3,7 +3,7 @@ import { AIBubble } from "./AIBubble";
 
 export const LoadingBubble = () => {
   return (
-    <AIBubble>
+    <AIBubble showProjects={false}>
       <BeatLoaderWrapper />
     </AIBubble>
   );

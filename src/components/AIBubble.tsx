@@ -7,13 +7,13 @@ type AIBubbleProps = {
 
 export const AIBubble = ({ children, showProjects }: AIBubbleProps) => {
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full z-20">
       <div
-        className={` ${
+        className={`relative flex-col items-center pl-4 pr-8 py-3 bg-[var(--neutral-500)] ${
           showProjects
-            ? "relative flex-col max-w-screen-md w-full rounded-l-[3rem] rounded-tr-xl "
+            ? "max-w-screen-md w-full rounded-l-[3rem] rounded-tr-xl "
             : "w-fit max-w-screen-sm rounded-l-[4rem] rounded-tr-4xl"
-        }   flex items-center gap-2.5 px-6 py-5 bg-[var(--neutral-500)] `}
+        }`}
       >
         {children}
       </div>

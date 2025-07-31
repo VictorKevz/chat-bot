@@ -113,7 +113,7 @@ export const Content = () => {
       <section
         ref={sectionRef}
         onScroll={handleScroll}
-        className={`max-w-screen-xl w-full h-[calc(100dvh-15dvh)] relative flex flex-col items-center px-4 z-10 overflow-y-scroll no-scrollbar pb-[9rem]  ${
+        className={`max-w-screen-xl w-full h-[calc(100dvh-15dvh)] relative flex flex-col items-center z-10 overflow-y-scroll no-scrollbar pb-[25dvh]  ${
           isEmpty ? "justify-center" : "justify-start"
         } `}
       >
@@ -135,7 +135,7 @@ export const Content = () => {
             </p>
           </div>
         ) : (
-          <div className="w-full flex flex-col gap-4 items-center justify-between pt-4">
+          <div className="w-full flex flex-col gap-4 items-center justify-between pt-5 pb-8 px-4">
             {chatLog.map((data, i) => (
               <ChatBubble key={i} data={data} onToggle={toggleProjectDialog} />
             ))}
@@ -216,7 +216,7 @@ export const ChatButton = ({
   return (
     <button
       type="button"
-      className={`text-white text-lg shadow-white/10 shadow-xl h-12 w-14 rounded-xl border border-[var(--border)] hover:bg-[${color}]`}
+      className={`text-white text-lg shadow-white/10 shadow-xl h-12 w-14 rounded-xl border border-[var(--border)] bg-[var(--neutral-0)]`}
       onClick={onToggle}
     >
       <span className={`text-[${color}]`}>
