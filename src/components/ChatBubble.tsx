@@ -4,12 +4,14 @@ import { parseTextWithLinks } from "../utils/textFormatter";
 import { ChatBubbleProps } from "../types/chatLog";
 import { ProjectPreview } from "./projects/ProjectPreview";
 import { AudioPlayer } from "./AudioPlayer";
+import { useState } from "react";
 
 export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
   const isUser = data.role === "user";
   const hasProjects = Boolean(
     data.projectsData && data.projectsData.length > 0
   );
+  const [isPlaying, setIsPlaying] = useState(false);
   // Here I only parse links for AI messages
   const renderContent = (text: string) => {
     if (isUser) {
@@ -73,7 +75,7 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
           </span>
         </div>
       ) : (
-        <AIBubble showProjects={hasProjects}>
+        <AIBubble showProjects={hasProjects} isPlaying={isPlaying}>
           <div className={`flex items-center gap-2 py-2`}>
             <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
               <SmartToy fontSize="medium" className="text-[var(--neutral-0)]" />
@@ -98,8 +100,15 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
             </div>
           )}
           <div className="w-full flex justify-end absolute right-2 bottom-2">
-            <AudioPlayer text={data.content} />
+            <AudioPlayer
+              text={data.content}
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
+            />
           </div>
+          {/* {isPlaying && (
+            <div className="absolute -top-2 -right-2 -left-2 w-full h-full bg-red-300"></div>
+          )} */}
         </AIBubble>
       )}
     </div>

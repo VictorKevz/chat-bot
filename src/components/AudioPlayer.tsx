@@ -1,13 +1,20 @@
-import { PlayCircle, PauseCircle } from "@mui/icons-material";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useTextToSpeech } from "../hooks/useTextToSpeech";
 import { Loader } from "../loaders/Loaders";
 import { ClipLoader } from "react-spinners";
+import { PauseCircle, PlayCircle } from "@mui/icons-material";
 
-export const AudioPlayer = ({ text }: { text: string }) => {
+export const AudioPlayer = ({
+  text,
+  isPlaying,
+  setIsPlaying,
+}: {
+  text: string;
+  isPlaying: boolean;
+  setIsPlaying: (playing: boolean) => void;
+}) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { getAudio, data: audioData, loading } = useTextToSpeech();
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleButtonClick = async () => {
     if (!audioData) {
@@ -15,7 +22,7 @@ export const AudioPlayer = ({ text }: { text: string }) => {
       setTimeout(() => {
         if (audioRef.current) {
           audioRef.current.currentTime = 0;
-          audioRef.current.playbackRate = 1.2;
+          audioRef.current.playbackRate = 1.1;
           audioRef.current.play().catch(() => {});
           setIsPlaying(true);
         }
