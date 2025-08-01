@@ -110,14 +110,11 @@ export const Content = () => {
   const handleChatDelete = useCallback(() => {
     onChatDelete();
     toggleWarningDialog();
-    onShowAlert(
-      {
-        message: "Chat deleted successfully!",
-        type: "success",
-        visible: true,
-      },
-      41000
-    );
+    onShowAlert({
+      message: "Chat deleted successfully!",
+      type: "success",
+      visible: true,
+    });
   }, [onChatDelete, onShowAlert]);
   return (
     <div className="w-full flex flex-col items-center justify-center">
