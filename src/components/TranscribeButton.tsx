@@ -1,12 +1,12 @@
 import { Check, Close } from "@mui/icons-material";
-import { SpeechButtonProps } from "../types/speechToText";
+import { TranscribeButtonProps } from "../types/speechToText";
 import { ScaleLoader } from "react-spinners";
 
 export const TranscribeButton = ({
   onCancel,
   onSubmit,
   transcript,
-}: SpeechButtonProps) => {
+}: TranscribeButtonProps) => {
   return (
     <div className="w-full flex flex-col items-center gap-5 mt-6">
       <div className="w-full flex items-center justify-center gap-4 md:gap-12">

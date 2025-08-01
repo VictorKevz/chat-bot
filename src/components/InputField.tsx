@@ -6,6 +6,7 @@ import { TranscribeButton } from "./TranscribeButton";
 import { useSpeechToText } from "../hooks/useSpeechToText";
 import { useEffect } from "react";
 import { Loader, RiseLoaderWrapper } from "../loaders/Loaders";
+import { useAlertProvider } from "../context/AlertContext";
 
 export const InputField = ({
   sendChatMessage,
@@ -21,7 +22,7 @@ export const InputField = ({
     cancelRecording,
     transcript,
   } = useSpeechToText();
-
+  const { onShowAlert } = useAlertProvider();
   const handleChange = (e: OnChangeType) => {
     setUserInput({
       message: e.target.value,
@@ -31,11 +32,20 @@ export const InputField = ({
   const handleSubmit = async (e: OnSubmitType) => {
     e.preventDefault();
     const trimmedValue = userInput.message.trim();
-    if (!trimmedValue && trimmedValue.length <= 5) {
+    if (!trimmedValue) {
       setUserInput((prev) => ({
         ...prev,
         isValid: false,
       }));
+      onShowAlert(
+        {
+          message:
+            "Failed: Message can't be blank! Please enter a valid question!",
+          type: "error",
+          visible: true,
+        },
+        4000
+      );
       return;
     }
 
@@ -103,12 +113,6 @@ export const InputField = ({
           placeholder="Ask anything..."
           className={`w-full text-[var(--neutral-1000)] text-base font-medium p-6 resize-none custom-scrollbar`}
         ></textarea>
-
-        {!userInput.isValid && (
-          <span className="absolute top-full mt-2 left-6 text-xs text-[var(--error)]">
-            Please enter a valid question!
-          </span>
-        )}
       </label>
       <div className="w-fit flex items-center">
         <button

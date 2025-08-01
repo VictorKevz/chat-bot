@@ -13,7 +13,7 @@ export const AIBubble = ({
 }: AIBubbleProps) => {
   return (
     <div
-      className={`w-full z-20 relative mr-auto ${
+      className={`z-20 relative mr-auto ${
         isPlaying
           ? "shadow-yellow-300/40 shadow-xl p-px bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]"
           : ""
@@ -26,7 +26,7 @@ export const AIBubble = ({
     >
       <div
         className={`relative flex-col items-start bg-[var(--neutral-500)] pl-4 pr-8 py-3 transition-all duration-300 ease-in-out  ${
-          isPlaying ? "shadow-blue-300/50 shadow-2xl " : ""
+          isPlaying ? "shadow-blue-300/50 shadow-lg " : ""
         } ${
           showProjects
             ? "max-w-screen-md w-full rounded-l-[3rem] rounded-tr-xl "

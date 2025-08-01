@@ -7,7 +7,7 @@ type WarningDialogProps = {
 };
 export const WarningDialog = ({ onDelete, onCancel }: WarningDialogProps) => {
   return (
-    <div className="w-full h-dvh fixed left-0 top-0 flex flex-col items-center justify-center gap-10 bg-[#0e0e0dc6] backdrop-blur-[.3rem] z-100 px-4 py-6 overflow-auto custom-scrollbar">
+    <div className="w-full h-dvh fixed left-0 top-0 flex flex-col items-center justify-center gap-10 bg-[#0e0e0dcb] backdrop-blur-[.4rem] z-100 px-4 py-6 overflow-auto custom-scrollbar">
       <motion.dialog
         variants={ModalVariants(50)}
         initial="hidden"
@@ -32,7 +32,7 @@ export const WarningDialog = ({ onDelete, onCancel }: WarningDialogProps) => {
           <button
             type="button"
             onClick={onCancel}
-            className="absolute right-0 top-0 text-black bg-[var(--neutral-800)] p-1 rounded-bl-lg"
+            className="absolute right-0 top-0 text-[var(--neutral-0)] bg-[var(--neutral-800)] p-1 rounded-bl-lg hover:scale-115"
           >
             <Close fontSize="medium" />
           </button>
@@ -47,14 +47,14 @@ export const WarningDialog = ({ onDelete, onCancel }: WarningDialogProps) => {
           <button
             type="button"
             onClick={onCancel}
-            className="h-12 w-full px-4 rounded-lg border border-[var(--neutral-800)]"
+            className="h-12 w-full px-4 rounded-lg border border-[var(--neutral-800)] hover:border-transparent hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-1000)] hover:scale-90"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={onDelete}
-            className="h-12 w-full px-4 rounded-lg border border-[var(--error)]"
+            className="h-12 w-full bg-[var(--error)] px-4 rounded-lg border border-transparent hover:border-[var(--error)] hover:bg-transparent hover:scale-90"
           >
             Delete
           </button>

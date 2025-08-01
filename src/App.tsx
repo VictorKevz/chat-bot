@@ -1,42 +1,46 @@
 import "./App.css";
+import { AlertMessage } from "./components/Alert";
 import { Content } from "./components/Content";
 import { NavBar } from "./components/NavBar";
+import { AlertProvider } from "./context/AlertContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   return (
-    <ThemeProvider>
-      <div className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat overflow-x-hidden">
-        {/* Background Picture */}
-        <picture className="pointer-events-none absolute inset-0 -z-10 h-full w-full">
-          <source
-            media="(min-width:1440px)"
-            srcSet="/main-bg.svg"
-            type="image/svg+xml"
-          />
-          <source
-            media="(min-width:768px)"
-            srcSet="/tablet-bg.png"
-            type="image/png"
-          />
-          <source
-            media="(max-width:767px)"
-            srcSet="/mobile-bg.png"
-            type="image/png"
-          />
-          <img
-            src="/main-bg.svg"
-            alt="Victor Chatbot Background"
-            className="h-full w-full object-cover"
-          />
-        </picture>
-
-        <main className="relative z-10 flex flex-col min-h-screen items-center w-full">
-          <NavBar />
-          <Content />
-        </main>
-      </div>
-    </ThemeProvider>
+    <div className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat overflow-x-hidden">
+      {/* Background Picture */}
+      <picture className="pointer-events-none absolute inset-0 -z-10 h-full w-full">
+        <source
+          media="(min-width:1440px)"
+          srcSet="/main-bg.svg"
+          type="image/svg+xml"
+        />
+        <source
+          media="(min-width:768px)"
+          srcSet="/tablet-bg.png"
+          type="image/png"
+        />
+        <source
+          media="(max-width:767px)"
+          srcSet="/mobile-bg.png"
+          type="image/png"
+        />
+        <img
+          src="/main-bg.svg"
+          alt="Victor Chatbot Background"
+          className="h-full w-full object-cover"
+        />
+      </picture>
+      <ThemeProvider>
+        <AlertProvider>
+          <main className="relative z-10 flex flex-col min-h-screen items-center w-full">
+            <NavBar />
+            <Content />
+          </main>
+          <AlertMessage />
+        </AlertProvider>
+      </ThemeProvider>
+    </div>
   );
 }
 

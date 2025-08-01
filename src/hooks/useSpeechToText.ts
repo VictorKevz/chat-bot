@@ -3,6 +3,7 @@ import {
   UseSpeechToTextReturn,
   SpeechToTextError,
 } from "../types/speechToText";
+import { useAlertProvider } from "../context/AlertContext";
 
 export const useSpeechToText = (): UseSpeechToTextReturn => {
   const [transcript, setTranscript] = useState<string>("");
@@ -14,6 +15,8 @@ export const useSpeechToText = (): UseSpeechToTextReturn => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const mimeTypeRef = useRef<string>("audio/wav");
+
+  const { onShowAlert } = useAlertProvider();
 
   // Check if browser supports MediaRecorder
   const isSupported = typeof MediaRecorder !== "undefined";
@@ -52,6 +55,11 @@ export const useSpeechToText = (): UseSpeechToTextReturn => {
       setError({
         type: "not-supported",
         message: "MediaRecorder is not supported in this browser",
+      });
+      onShowAlert({
+        message: "MediaRecorder is not supported in this browser",
+        type: "error",
+        visible: true,
       });
       return;
     }
@@ -130,8 +138,16 @@ export const useSpeechToText = (): UseSpeechToTextReturn => {
               setIsTranscribing(false);
               setError({
                 type: "network",
-                message: "Failed to transcribe audio",
+                message: `Failed to transcribe audio, ${transcriptionError}`,
               });
+              onShowAlert(
+                {
+                  message: `Failed to transcribe audio. Please try again later.`,
+                  type: "error",
+                  visible: true,
+                },
+                3800
+              );
             }
           };
 
@@ -158,7 +174,7 @@ export const useSpeechToText = (): UseSpeechToTextReturn => {
         message: "Microphone access denied",
       });
     }
-  }, [isSupported]);
+  }, [isSupported, onShowAlert]);
 
   const stopRecording = useCallback(() => {
     if (

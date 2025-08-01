@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useAlertProvider } from "../context/AlertContext";
 
 export const useTextToSpeech = () => {
   const [data, setData] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const { onShowAlert } = useAlertProvider();
 
   const getAudio = async (text: string) => {
     try {
@@ -29,10 +31,18 @@ export const useTextToSpeech = () => {
       return data;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error");
+      onShowAlert({
+        message: err instanceof Error ? err.message : "Unexpected error",
+        type: "error",
+        visible: true,
+      });
     } finally {
       setLoading(false);
     }
   };
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
 
-  return { data, loading, error, getAudio };
+  return { data, loading, error, getAudio, clearError };
 };

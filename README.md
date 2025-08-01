@@ -29,7 +29,7 @@ I developed this full-stack chat application to demonstrate proficiency in moder
 
 ### Speech-to-Text Feature
 ![Speech to Text](/public/screenshots/speech-to-text.png)
-*Real-time audio transcription with visual feedback*
+*Real-time audio transcription and text-to-speech powered by Deepgram and Groq*
 
 ### Interactive Features
 ![FAQs Active](/public/screenshots/faqs-active.png)
@@ -38,23 +38,37 @@ I developed this full-stack chat application to demonstrate proficiency in moder
 ![Delete Modal](/public/screenshots/delete-modal.png)
 *Thoughtful confirmation dialogs for better user experience*
 
+
 ## Key Features
 
 - **Intelligent Conversations**: Powered by Groq's LLaMA models for fast, contextual responses
 - **Speech-to-Text**: Real-time audio transcription using Groq's Whisper API
+- **Text-to-Speech**: Natural-sounding AI voices using Deepgram TTS
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **Project Showcase**: Dynamic project portfolio integration
+- **Project Modals**: Clickable project previews open modals with detailed information
+- **FAQs**: Clickable FAQ bubbles help users quickly access common questions; open/close state is persisted with localStorage
+- **Chat History Persistence**: Chat history and open FAQs are saved in localStorage for session continuity
+- **Delete Chat Option**: Users can delete chat history, triggering a warning modal for confirmation
+- **Form Validation**: Input field is validated for completeness and correctness
+- **MUI Alerts**: Success and error alerts for chat deletion, transcription, TTS conversion, and invalid forms.
+- **Framer Motion Animations**: Subtle, smooth UI transitions and animations for enhanced user experience
 - **Real-time Interactions**: Smooth animations and loading states
-- **Dynamic Data**: fetches data from supabase 
+- **Dynamic Data**: Fetches data from Supabase
+
 
 
 ## Technical Highlights
 
 - **Frontend**: React 18 + TypeScript + Vite for optimal development experience
 - **Styling**: Tailwind CSS for responsive design patterns
-- **API Integration**: Groq AI services for chat and transcription
+- **UI Animations**: Framer Motion for subtle, performant transitions
+- **Component Library**: MUI for alerts and UI feedback.
 - **State Management**: React hooks with optimized re-rendering
-- **Audio Processing**: MediaRecorder API with format optimization
+- **Persistence**: localStorage for chat history and FAQ state
+- **API Integration**: Groq AI services for chat and transcription, Deepgram for text-to-speech
+- **Audio Processing**: MediaRecorder API for speech-to-text, Deepgram TTS for audio playback
+- **Form Validation**: Ensures robust user input handling
 - **Deployment**: Vercel serverless functions for scalable backend
 
 ## Why I Built This
@@ -69,13 +83,12 @@ This project represents my exploration of modern AI integration patterns and dem
 
 ## Development Journey
 
-The project evolved through several iterations, each teaching valuable lessons about full-stack development and AI integration. Key challenges I overcame include optimizing audio processing for web browsers as I had initially used the Web Speech API which I later found to be hard to use. Also, implementing robust error handling for AI services, and creating seamless user interactions.
+The project evolved through several iterations, each teaching valuable lessons about full-stack development and AI integration. Key challenges I overcame include optimizing audio processing for web browsers, switching from the Web Speech API to Deepgram for TTS, implementing robust error handling for AI services, and creating seamless user interactions.
+
 
 ## Documentation
 
 - [📁 Architecture Overview](./ARCHITECTURE.md)
-- [🔧 Development Guide](./DEVELOPMENT.md)
-- [🌐 API Documentation](./API_DOCUMENTATION.md)
 - [🚀 Deployment Guide](./DEPLOYMENT.md)
 
 ## Contact

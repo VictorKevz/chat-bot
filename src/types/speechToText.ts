@@ -18,8 +18,10 @@ export interface UseSpeechToTextReturn {
   cancelRecording: () => void;
   clearError: () => void;
 }
-export type SpeechButtonProps = {
+export type TranscribeButtonProps = {
   onCancel: () => void;
   transcript: string;
   onSubmit: () => void;
+  // error: SpeechToTextError | null;
+  // onClearError: () => void;
 };

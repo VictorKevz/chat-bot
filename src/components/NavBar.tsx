@@ -34,8 +34,8 @@ export const NavBar = () => {
               alt=""
             />
           </figure>
-          <h1 className="text-xl sm:text-3xl font-extrabold bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent uppercase flex items-end gap-1 tracking-wide">
-            vctr
+          <h1 className="text-xl sm:text-3xl font-extrabold flex items-end gap-1 tracking-wide">
+            <VCTR />
             <span
               className="rounded-full h-[.5rem] w-[.5rem] mb-2"
               style={{ background: "var(--purple-gradient)" }}
@@ -91,5 +91,13 @@ export const NavBar = () => {
         </figure>
       </header>
     </div>
+  );
+};
+
+export const VCTR = () => {
+  return (
+    <span className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent uppercase">
+      VCTR
+    </span>
   );
 };

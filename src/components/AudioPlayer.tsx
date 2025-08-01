@@ -2,7 +2,8 @@ import { useRef } from "react";
 import { useTextToSpeech } from "../hooks/useTextToSpeech";
 import { Loader } from "../loaders/Loaders";
 import { ClipLoader } from "react-spinners";
-import { PauseCircle, PlayCircle } from "@mui/icons-material";
+import { Error, PauseCircle, PlayCircle, Refresh } from "@mui/icons-material";
+import { replaceLinks } from "../utils/replaceText";
 
 export const AudioPlayer = ({
   text,
@@ -14,11 +15,18 @@ export const AudioPlayer = ({
   setIsPlaying: (playing: boolean) => void;
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const { getAudio, data: audioData, loading } = useTextToSpeech();
+  const {
+    getAudio,
+    data: audioData,
+    loading,
+    error,
+    clearError,
+  } = useTextToSpeech();
 
   const handleButtonClick = async () => {
     if (!audioData) {
-      await getAudio(text);
+      const refinedText = replaceLinks(text);
+      await getAudio(refinedText);
       setTimeout(() => {
         if (audioRef.current) {
           audioRef.current.currentTime = 0;
@@ -41,7 +49,22 @@ export const AudioPlayer = ({
   const handleEnded = () => {
     setIsPlaying(false);
   };
-
+  if (error)
+    return (
+      <div className="flex items-center gap-3 border border-[var(--error)] text-xs text-white py-0.5 px-1.5 rounded-md min-w-max">
+        <span className="flex items-center gap-1">
+          <Error fontSize="small" />
+          Failed!
+        </span>
+        <button
+          type="button"
+          onClick={clearError}
+          className="bg-[var(--success)] scale-90 p-1 rounded-full"
+        >
+          <Refresh fontSize="small" />
+        </button>
+      </div>
+    );
   return (
     <div className="flex items-center">
       <audio

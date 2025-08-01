@@ -13,6 +13,8 @@ import { EmptyProjectItem, ProjectItem } from "../types/projects";
 import { ProjectDialog } from "./projects/ProjectDialog";
 import { SvgIconComponent } from "@mui/icons-material";
 import { WarningDialog } from "./WarningDialog";
+import { useAlertProvider } from "../context/AlertContext";
+import { VCTR } from "./NavBar";
 
 export const Content = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -29,6 +31,7 @@ export const Content = () => {
 
   const { sendChatMessage, chatLog, onChatDelete, loading } = useChat();
   const { fetchProjects, projectsLoading } = useProjects();
+  const { onShowAlert } = useAlertProvider();
 
   const [showProjectDialog, setShowProjectDialog] = useState(false);
   const [currentProject, setCurrentProject] =
@@ -107,7 +110,15 @@ export const Content = () => {
   const handleChatDelete = useCallback(() => {
     onChatDelete();
     toggleWarningDialog();
-  }, [onChatDelete]);
+    onShowAlert(
+      {
+        message: "Chat deleted successfully!",
+        type: "success",
+        visible: true,
+      },
+      41000
+    );
+  }, [onChatDelete, onShowAlert]);
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <section
@@ -131,7 +142,8 @@ export const Content = () => {
               Hello, Welcome!
             </motion.h2>
             <p className="text-base md:text-lg text-[var(--neutral-400)]">
-              Get to know Victor by chatting with his chatbot!
+              Get to know Victor by chatting with <VCTR />, his personal AI
+              assistant.{" "}
             </p>
           </div>
         ) : (
