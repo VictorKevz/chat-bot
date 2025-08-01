@@ -157,10 +157,11 @@ export const Content = () => {
         </button>
       )}
 
+      {/* Fixed container for the InputField and action buttons */}
       <div
         className={`w-full px-4 fixed z-20 bottom-4 max-w-screen-lg flex flex-col gap-2`}
       >
-        <div className="w-full flex items-center justify-end gap-2">
+        <div className="w-fit ml-auto flex gap-2">
           {!isEmpty && (
             <ChatButton
               icon={DeleteForever}
@@ -184,6 +185,9 @@ export const Content = () => {
           <div className="fixed bottom-0 left-0 w-screen h-[15vh] backdrop-blur-[.5rem] -z-1"></div>
         )}
       </div>
+
+      {/* Dialogs - FAQS, Projects and Warning */}
+
       <AnimatePresence mode="wait">
         {showFaqs && <FAQs onCloseFAQs={toggleFAQS} onUpdate={OnFAQsUpdate} />}
       </AnimatePresence>

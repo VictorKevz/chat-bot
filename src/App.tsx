@@ -6,7 +6,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 function App() {
   return (
     <ThemeProvider>
-      <main className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat overflow-x-hidden">
+      <div className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat overflow-x-hidden">
         {/* Background Picture */}
         <picture className="pointer-events-none absolute inset-0 -z-10 h-full w-full">
           <source
@@ -31,11 +31,11 @@ function App() {
           />
         </picture>
 
-        <div className="relative z-10 flex flex-col min-h-screen items-center w-full">
+        <main className="relative z-10 flex flex-col min-h-screen items-center w-full">
           <NavBar />
           <Content />
-        </div>
-      </main>
+        </main>
+      </div>
     </ThemeProvider>
   );
 }

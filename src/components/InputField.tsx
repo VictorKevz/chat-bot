@@ -5,7 +5,7 @@ import { ProjectItem } from "../types/projects";
 import { TranscribeButton } from "./TranscribeButton";
 import { useSpeechToText } from "../hooks/useSpeechToText";
 import { useEffect } from "react";
-import { RiseLoaderWrapper } from "../loaders/Loaders";
+import { Loader, RiseLoaderWrapper } from "../loaders/Loaders";
 
 export const InputField = ({
   sendChatMessage,
@@ -79,7 +79,7 @@ export const InputField = ({
   // Render transcribing state
   const renderTranscribingState = () => (
     <div className="h-full w-full flex items-center justify-center p-4">
-      <RiseLoaderWrapper />
+      <Loader LoaderItem={RiseLoaderWrapper} size={18} color="#ffde59d4" />
     </div>
   );
 

@@ -63,7 +63,7 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
   return (
     <div className="w-full z-20">
       {isUser ? (
-        <div className="w-fit flex items-center justify-end gap-2.5 shadow-2xl rounded-tl-[2.5rem] rounded-bl-lg rounded-tr-[4rem] rounded-br-[4rem] relative p-4 bg-[var(--neutral-600)] ml-auto">
+        <div className="max-w-screen-sm w-fit flex items-center justify-end gap-2.5 shadow-2xl rounded-tl-[2.5rem] rounded-bl-lg rounded-tr-[4rem] rounded-br-[4rem] relative p-4 bg-[var(--neutral-600)] ml-auto">
           <p
             className="text-[var(--neutral-1000)] text-sm sm:text-lg"
             style={{ whiteSpace: "normal", wordWrap: "break-word" }}
