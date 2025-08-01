@@ -88,12 +88,13 @@ The project evolved through several iterations, each teaching valuable lessons a
 
 ## Documentation
 
-- [📁 Architecture Overview](./ARCHITECTURE.md)
-- [🚀 Deployment Guide](./DEPLOYMENT.md)
+- [📁 Architecture Overview](./docs/ARCHITECTURE.md)
+- [🚀 Deployment Guide](./docs/DEPLOYMENT.md)
 
 ## Contact
 
 **Victor Kevz**
-- Portfolio: [victorkevz.com](https://victorkevz.com/)
+- Portfolio: [chatbot.victorkevz.com](https://chatbot.victorkevz.com/)
+- CV Site: [victorkevz.com](https://victorkevz.com/)
 - LinkedIn: [Victor Kuwandira](https://www.linkedin.com/in/victor-kuwandira/)
 - Email: contact@victorkevz.com
