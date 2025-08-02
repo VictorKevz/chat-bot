@@ -32,7 +32,7 @@ export const FAQs = ({ onCloseFAQs, onUpdate }: FAQsProps) => {
 
   const isEmpty = categories.length === 0;
   return (
-    <div className="w-full h-dvh fixed top-0 flex flex-col items-center justify-end gap-10 bg-[#0000003b] backdrop-blur-[.2rem] z-50 overflow-auto">
+    <div className="w-full h-dvh fixed top-0 flex flex-col items-center justify-end bg-[#0000003b] backdrop-blur-[.2rem] z-50 overflow-auto">
       <FocusTrap open>
         <motion.dialog
           variants={ModalVariants(50)}
