@@ -96,39 +96,46 @@ export const InputField = ({
   // Render normal input state
   const renderInputState = () => (
     <div className="w-full flex items-center relative px-4">
-      <label
-        htmlFor="message"
-        className="w-full relative flex justify-between items-center"
-      >
-        <textarea
-          id="message"
-          value={userInput.message}
-          onChange={(e: OnChangeType) => handleChange(e)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(e as unknown as OnSubmitType);
-            }
-          }}
-          placeholder="Ask anything..."
-          className={`w-full text-[var(--neutral-1000)] text-base font-medium p-6 resize-none custom-scrollbar`}
-        ></textarea>
+      <label htmlFor="message" className="sr-only">
+        Message input
       </label>
+      <textarea
+        id="message"
+        aria-label="Type your message"
+        value={userInput.message}
+        onChange={(e: OnChangeType) => handleChange(e)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit(e as unknown as OnSubmitType);
+          }
+        }}
+        placeholder="Ask anything..."
+        className={`w-full text-[var(--neutral-1000)] text-base font-medium p-6 resize-none custom-scrollbar`}
+        aria-invalid={!userInput.isValid}
+        aria-describedby="input-helper"
+      ></textarea>
       <div className="w-fit flex items-center">
         <button
           type="button"
           onClick={startRecording}
           className={`rounded-full bg-black text-[var(--secondary-color)] min-h-8 min-w-8 bg-cover drop-shadow-xl opacity-80 mr-4`}
+          aria-label={
+            isRecording ? "Recording in progress" : "Start voice input"
+          }
         >
-          <Mic />
+          <Mic aria-hidden="true" />
         </button>
-        <button
-          type="submit"
-          className={` rounded-full min-h-10 min-w-10 bg-cover drop-shadow-xl opacity-90`}
-          style={{ background: "var(--yellow-gradient)" }}
-        >
-          <ArrowUpward />
-        </button>
+        {userInput.message && (
+          <button
+            type="submit"
+            className={` rounded-full min-h-10 min-w-10 bg-cover drop-shadow-xl opacity-90`}
+            style={{ background: "var(--yellow-gradient)" }}
+            aria-label="Send message"
+          >
+            <ArrowUpward aria-hidden="true" />
+          </button>
+        )}
       </div>
     </div>
   );
@@ -150,13 +157,23 @@ export const InputField = ({
         onSubmit={(e: OnSubmitType) => handleSubmit(e)}
         className="w-full min-h-[20dvh] z-20 flex flex-col items-center justify-end bg-cover bg-no-repeat rounded-2xl"
         style={{ backgroundImage: "url(/user-buble-bg.png)" }}
+        aria-label="Chat input form"
       >
         {renderFormContent()}
 
         <div className="w-full bg-[var(--neutral-500)] py-3 px-4 rounded-b-2xl shadow-2xl">
-          <p className="text-xs md:text-sm text-white/60 text-center">
+          <p
+            id="input-helper"
+            className="text-xs md:text-sm text-white/60 text-center"
+            aria-live="polite"
+          >
             VCTR can make mistakes, try to ask concise and precise questions for
             a better experience❤️!
+            {!userInput.isValid && (
+              <span className="sr-only">
+                Error: Message can't be blank. Please enter a valid question.
+              </span>
+            )}
           </p>
         </div>
       </form>

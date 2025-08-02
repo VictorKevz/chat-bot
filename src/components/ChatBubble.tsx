@@ -63,7 +63,11 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
   return (
     <div className="w-full z-20">
       {isUser ? (
-        <div className="max-w-screen-sm w-fit flex items-center justify-end gap-2.5 shadow-2xl rounded-tl-[2.5rem] rounded-bl-lg rounded-tr-[4rem] rounded-br-[4rem] relative p-4 bg-[var(--neutral-600)] ml-auto">
+        <div
+          className="max-w-screen-sm w-fit flex items-center justify-end gap-2.5 shadow-2xl rounded-tl-[2.5rem] rounded-bl-lg rounded-tr-[4rem] rounded-br-[4rem] relative p-4 bg-[var(--neutral-600)] ml-auto"
+          role="group"
+          aria-label="Your message"
+        >
           <p
             className="text-[var(--neutral-1000)] text-sm sm:text-lg"
             style={{ whiteSpace: "normal", wordWrap: "break-word" }}
@@ -71,14 +75,28 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
             {renderContent(data.content)}
           </p>
           <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]">
-            <Person fontSize="medium" className="shadow-xl" />
+            <Person
+              fontSize="medium"
+              className="shadow-xl"
+              aria-hidden="true"
+            />
+            <span className="sr-only">You</span>
           </span>
         </div>
       ) : (
         <AIBubble showProjects={hasProjects} isPlaying={isPlaying}>
-          <div className={`flex items-center gap-2 py-2`}>
+          <div
+            className={`w-full flex items-center gap-2 py-2`}
+            role="group"
+            aria-label="AI message"
+          >
             <span className="min-w-9 min-h-9 sm:min-h-12 sm:min-w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)]">
-              <SmartToy fontSize="medium" className="text-[var(--neutral-0)]" />
+              <SmartToy
+                fontSize="medium"
+                className="text-[var(--neutral-0)]"
+                aria-hidden="true"
+              />
+              <span className="sr-only">AI</span>
             </span>
             <p
               className="text-white text-sm sm:text-lg w-[90%]"
@@ -106,9 +124,6 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
               setIsPlaying={setIsPlaying}
             />
           </div>
-          {/* {isPlaying && (
-            <div className="absolute -top-2 -right-2 -left-2 w-full h-full bg-red-300"></div>
-          )} */}
         </AIBubble>
       )}
     </div>

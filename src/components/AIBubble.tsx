@@ -20,7 +20,7 @@ export const AIBubble = ({
       } ${
         isPlaying && showProjects
           ? "max-w-screen-md w-full rounded-l-[3rem] rounded-tr-xl "
-          : "w-fit max-w-screen-sm rounded-l-[4rem] rounded-tr-4xl"
+          : "w-fit max-w-screen-md rounded-l-[4rem] rounded-tr-4xl"
       }
       `}
     >
@@ -29,7 +29,7 @@ export const AIBubble = ({
           isPlaying ? "shadow-blue-300/50 shadow-lg " : ""
         } ${
           showProjects
-            ? "max-w-screen-md w-full rounded-l-[3rem] rounded-tr-xl "
+            ? "w-full rounded-l-[3rem] rounded-tr-xl"
             : "w-fit max-w-screen-sm rounded-l-[4rem] rounded-tr-4xl"
         }`}
       >

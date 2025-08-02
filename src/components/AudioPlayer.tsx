@@ -51,17 +51,23 @@ export const AudioPlayer = ({
   };
   if (error)
     return (
-      <div className="flex items-center gap-3 border border-[var(--error)] text-xs text-white py-0.5 px-1.5 rounded-md min-w-max">
+      <div
+        className="flex items-center gap-3 border border-[var(--error)] text-xs text-white py-0.5 px-1.5 rounded-md min-w-max"
+        aria-live="assertive"
+        role="alert"
+      >
         <span className="flex items-center gap-1">
-          <Error fontSize="small" />
+          <Error fontSize="small" aria-hidden="true" />
+          <span className="sr-only">Audio playback failed</span>
           Failed!
         </span>
         <button
           type="button"
           onClick={clearError}
           className="bg-[var(--success)] scale-90 p-1 rounded-full"
+          aria-label="Retry audio playback"
         >
-          <Refresh fontSize="small" />
+          <Refresh fontSize="small" aria-hidden="true" />
         </button>
       </div>
     );
@@ -72,19 +78,33 @@ export const AudioPlayer = ({
         src={audioData ? `data:audio/wav;base64,${audioData}` : undefined}
         style={{ display: "none" }}
         onEnded={handleEnded}
+        aria-label="Audio playback"
       />
       <button
         type="button"
         onClick={handleButtonClick}
         disabled={loading}
         className="text-[var(--neutral-800)]"
+        aria-label={
+          loading
+            ? "Loading audio"
+            : isPlaying
+            ? "Pause audio playback"
+            : "Play audio"
+        }
       >
         {loading ? (
           <Loader LoaderItem={ClipLoader} size={20} color="#ffde59d4" />
         ) : isPlaying ? (
-          <PauseCircle className="text-[var(--error)]" />
+          <>
+            <PauseCircle className="text-[var(--error)]" aria-hidden="true" />
+            <span className="sr-only">Pause audio</span>
+          </>
         ) : (
-          <PlayCircle />
+          <>
+            <PlayCircle aria-hidden="true" />
+            <span className="sr-only">Play audio</span>
+          </>
         )}
       </button>
     </div>

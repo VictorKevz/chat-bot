@@ -4,7 +4,7 @@ export const ProjectPreview = ({ data, onToggle }: ProjectPreviewProps) => {
   const { title, image_urls: images, live_url } = data;
   return (
     <div className="w-full flex flex-col items-center px-4 py-6 bg-[#0f1010a5] backdrop-blur-[1rem] border border-[var(--border)] rounded-xl">
-      <h3 className="text-white text-xl md:text-2xl my-2">{title}</h3>
+      <h3 className="text-white text-xl my-2">{title}</h3>
       <div className="w-full flex items-center justify-between gap-5 my-5">
         <button
           type="button"
