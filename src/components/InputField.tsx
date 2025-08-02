@@ -22,6 +22,7 @@ export const InputField = ({
     stopRecording,
     cancelRecording,
     transcript,
+    remainingTime,
   } = useSpeechToText();
   const { onShowAlert } = useAlertProvider();
   const handleChange = (e: OnChangeType) => {
@@ -83,6 +84,7 @@ export const InputField = ({
         onCancel={cancelRecording}
         onSubmit={stopRecording}
         transcript={transcript}
+        remainingTime={remainingTime}
       />
     </div>
   );

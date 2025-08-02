@@ -11,6 +11,7 @@ export interface UseSpeechToTextReturn {
   isTranscribing: boolean;
   error: SpeechToTextError | null;
   isSupported: boolean;
+  remainingTime: number;
 
   // Actions
   startRecording: () => Promise<void>;
@@ -22,6 +23,7 @@ export type TranscribeButtonProps = {
   onCancel: () => void;
   transcript: string;
   onSubmit: () => void;
+  remainingTime: number;
   // error: SpeechToTextError | null;
   // onClearError: () => void;
 };
