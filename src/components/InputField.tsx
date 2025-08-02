@@ -7,7 +7,8 @@ import { useSpeechToText } from "../hooks/useSpeechToText";
 import { useEffect } from "react";
 import { Loader, RiseLoaderWrapper } from "../loaders/Loaders";
 import { useAlertProvider } from "../context/AlertContext";
-
+import { AnimatePresence, motion } from "framer-motion";
+import { ModalVariants } from "../variants";
 export const InputField = ({
   sendChatMessage,
   userInput,
@@ -148,35 +149,40 @@ export const InputField = ({
   };
 
   return (
-    <div
-      className="p-px rounded-2xl w-full"
-      style={{ background: "var(--purple-gradient)" }}
-    >
-      <form
-        autoComplete="off"
-        onSubmit={(e: OnSubmitType) => handleSubmit(e)}
-        className="w-full min-h-[20dvh] z-20 flex flex-col items-center justify-end bg-cover bg-no-repeat rounded-2xl"
-        style={{ backgroundImage: "url(/user-buble-bg.png)" }}
-        aria-label="Chat input form"
+    <AnimatePresence>
+      <motion.div
+        variants={ModalVariants(20)}
+        animate="visible"
+        initial="hidden"
+        className="p-px rounded-2xl w-full"
+        style={{ background: "var(--purple-gradient)" }}
       >
-        {renderFormContent()}
+        <form
+          autoComplete="off"
+          onSubmit={(e: OnSubmitType) => handleSubmit(e)}
+          className="w-full min-h-[20dvh] z-20 flex flex-col items-center justify-end bg-cover bg-no-repeat rounded-2xl"
+          style={{ backgroundImage: "url(/user-buble-bg.png)" }}
+          aria-label="Chat input form"
+        >
+          {renderFormContent()}
 
-        <div className="w-full bg-[var(--neutral-500)] py-3 px-4 rounded-b-2xl shadow-2xl">
-          <p
-            id="input-helper"
-            className="text-xs md:text-sm text-white/60 text-center"
-            aria-live="polite"
-          >
-            VCTR can make mistakes, try to ask concise and precise questions for
-            a better experience❤️!
-            {!userInput.isValid && (
-              <span className="sr-only">
-                Error: Message can't be blank. Please enter a valid question.
-              </span>
-            )}
-          </p>
-        </div>
-      </form>
-    </div>
+          <div className="w-full bg-[var(--neutral-500)] py-3 px-4 rounded-b-2xl shadow-2xl">
+            <p
+              id="input-helper"
+              className="text-xs md:text-sm text-white/60 text-center"
+              aria-live="polite"
+            >
+              VCTR can make mistakes, try to ask concise and precise questions
+              for a better experience❤️!
+              {!userInput.isValid && (
+                <span className="sr-only">
+                  Error: Message can't be blank. Please enter a valid question.
+                </span>
+              )}
+            </p>
+          </div>
+        </form>
+      </motion.div>
+    </AnimatePresence>
   );
 };

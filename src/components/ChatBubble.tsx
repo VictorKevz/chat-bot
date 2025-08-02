@@ -5,6 +5,8 @@ import { ChatBubbleProps } from "../types/chatLog";
 import { ProjectPreview } from "./projects/ProjectPreview";
 import { AudioPlayer } from "./AudioPlayer";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { ModalVariants } from "../variants";
 
 export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
   const isUser = data.role === "user";
@@ -63,7 +65,10 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
   return (
     <div className="w-full z-20">
       {isUser ? (
-        <div
+        <motion.div
+          variants={ModalVariants(20)}
+          animate="visible"
+          initial="hidden"
           className="max-w-screen-sm w-fit flex items-center justify-end gap-2.5 shadow-2xl rounded-tl-[2.5rem] rounded-bl-lg rounded-tr-[4rem] rounded-br-[4rem] relative p-4 bg-[var(--neutral-600)] ml-auto"
           role="group"
           aria-label="Your message"
@@ -82,7 +87,7 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
             />
             <span className="sr-only">You</span>
           </span>
-        </div>
+        </motion.div>
       ) : (
         <AIBubble showProjects={hasProjects} isPlaying={isPlaying}>
           <div
