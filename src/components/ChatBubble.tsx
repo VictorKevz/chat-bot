@@ -112,7 +112,7 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
           </div>
 
           {hasProjects && (
-            <div className="w-full grid gap-8 sm:grid-cols-2 py-8 mt-6 border-t border-gray-400/40">
+            <div className="w-full grid gap-8 sm:grid-cols-2 lg:grid-cols-3 py-8 mt-6 border-t border-gray-400/40">
               {data.projectsData!.map((project) => (
                 <ProjectPreview
                   key={project.id}

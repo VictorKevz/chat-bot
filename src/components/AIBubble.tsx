@@ -24,8 +24,8 @@ export const AIBubble = ({
             : ""
         } ${
           isPlaying && showProjects
-            ? "max-w-screen-md w-full rounded-l-[3rem] rounded-tr-xl "
-            : "w-fit max-w-screen-md rounded-l-[4rem] rounded-tr-4xl"
+            ? "max-w-screen-lg w-full rounded-l-[3rem] rounded-tr-xl "
+            : "w-fit max-w-screen-lg rounded-l-[4rem] rounded-tr-4xl"
         }
       `}
       >

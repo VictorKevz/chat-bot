@@ -6,7 +6,7 @@ export type ProjectItem = {
   features: string[];
   icons: string[];
   tech_stack: string[];
-  highlighted: boolean;
+  isProudOf: boolean;
   created_at: string;
   live_url: string;
   github_url: string;
@@ -21,7 +21,7 @@ export const EmptyProjectItem: ProjectItem = {
   features: [],
   icons: [],
   tech_stack: [],
-  highlighted: false,
+  isProudOf: false,
   created_at: "",
   live_url: "",
   github_url: "",
