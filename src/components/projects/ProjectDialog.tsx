@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 import { ProjectDialogProps } from "../../types/projects";
 import { motion } from "framer-motion";
-import { ModalVariants } from "../../variants";
+import { ModalVariants, SliderVariants } from "../../variants";
 import FocusTrap from "@mui/material/Unstable_TrapFocus";
 import { useState } from "react";
 
@@ -23,12 +23,15 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
     github_url: github,
   } = data;
   const [currentIndex, setIndex] = useState<number>(0);
+  const [direction, setDirection] = useState<"left" | "right">("left");
 
   const nextSlide = () => {
     setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setDirection("right");
   };
   const prevSlide = () => {
     setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setDirection("left");
   };
   const getColor = (i: number) => {
     const colors = [
@@ -76,28 +79,28 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
           </header>
           <div className="w-full px-6 py-8 bg-[var(--neutral-100)] rounded-xl shadow-xl">
             <h3 className="text-3xl text-white">Tech Stack</h3>
-            <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <ul className="w-full flex items-center gap-4 mt-4 flex-wrap">
+            <div className="w-full flex flex-col-reverse md:flex-row items-start justify-between gap-6 mt-4">
+              <ul className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5  gap-4">
                 {techStack.map((item, i) => {
                   const color = getColor(i);
                   return (
                     <li
                       key={item}
                       style={{ backgroundColor: `${color}` }}
-                      className={`px-4 h-10 flex items-center justify-center font-medium text-[var(--neutral-0)] rounded-xl scale-80 sm:scale-100`}
+                      className={`h-10 flex items-center justify-center font-medium text-[var(--neutral-0)] rounded-lg sm:scale-100`}
                     >
                       {item}
                     </li>
                   );
                 })}
               </ul>
-              <ul className="flex">
+              <ul className="flex w-full justify-between gap-4 sm:w-fit sm:justify-start sm:gap-0">
                 {icons.map((icon) => (
                   <li
                     key={icon}
-                    className="flex items-center justify-center rounded-full bg-[var(--neutral-0)] last:bg-white/50 border border-[var(--border)] h-12 w-12 not-first:-ml-4"
+                    className="flex items-center justify-center rounded-xl bg-[var(--neutral-0)] last:bg-white/50 border border-[var(--border)] min-w-10 min-h-10 sm:h-12 sm:w-12 sm:not-first:-ml-4"
                   >
-                    <img src={icon} className="w-8 " alt="" />
+                    <img src={icon} className="w-7 sm:w-8 " alt="" />
                   </li>
                 ))}
               </ul>
@@ -148,33 +151,40 @@ export const ProjectDialog = ({ data, onToggle }: ProjectDialogProps) => {
               alt=""
             />
           </div>
-          <div className="w-full bg-[var(--neutral-100)] border border-[var(--border)] rounded-xl px-6 py-8 shadow-yellow-200/5 shadow-md">
+          <div className="w-full bg-[var(--neutral-100)] border border-[var(--border)] rounded-xl px-4 py-6 shadow-yellow-200/5 shadow-md overflow-x-hidden">
             <header className="w-full flex items-center justify-between gap-5">
-              <h2 className="text-3xl text-white">Image Gallery</h2>
-              <div className="flex gap-2">
+              <h2 className="text-2xl sm:text-3xl text-white">Image Gallery</h2>
+              <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={prevSlide}
-                  className="h-12 w-12 rounded-full bg-[var(--neutral-800)]"
+                  className="h-8 w-8 sm:h-12 sm:w-12 rounded-full bg-[var(--neutral-800)] bg-gradient-to-r hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:scale-110 hover:-translate-x-1"
                 >
-                  <ArrowBack />
+                  <ArrowBack className="scale-80 sm:scale-100" />
                 </button>
                 <button
                   type="button"
                   onClick={nextSlide}
-                  className="h-12 w-12 rounded-full bg-[var(--neutral-800)]"
+                  className="h-8 w-8 sm:h-12 sm:w-12 rounded-full bg-[var(--neutral-800)] bg-gradient-to-r hover:from-[var(--primary-color)] hover:to-[var(--secondary-color)] hover:scale-110 hover:translate-x-1"
                 >
-                  <ArrowForward />
+                  <ArrowForward className="scale-80 sm:scale-100" />
                 </button>
               </div>
             </header>
-
-            <ul className="w-full mt-6">
-              <li
-                className={`w-full rounded-3xl min-h-[30rem] bg-top bg-cover bg-no-repeat`}
-                style={{ backgroundImage: `url(${images[currentIndex]})` }}
-              ></li>
-            </ul>
+            <motion.figure
+              variants={SliderVariants(direction)}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              key={images[currentIndex]}
+              className="w-full mt-6 shadow-yellow-300/10 shadow-2xl rounded-2xl xl:rounded-3xl"
+            >
+              <img
+                src={images[currentIndex]}
+                alt=""
+                className={`w-full rounded-2xl xl:rounded-3xl min-h-[10rem] sm:min-h-[20rem] md:min-h-[25rem] lg:min-h-[35rem] object-cover`}
+              />
+            </motion.figure>
           </div>
         </motion.dialog>
       </FocusTrap>

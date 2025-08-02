@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants, easeInOut } from "framer-motion";
 
 export const ModalVariants = (i: number): Variants => ({
   hidden: { y: i, opacity: 0, scale: 0.95 },
@@ -48,3 +48,17 @@ export const AlertVariants = {
     },
   },
 };
+
+export const SliderVariants = (direction: "left" | "right") => ({
+  hidden: { opacity: 0.9, x: direction === "left" ? -50 : 50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { type: "tween" as const, ease: easeInOut, duration: 0.5 },
+  },
+  exit: {
+    opacity: 0,
+    x: direction === "left" ? 100 : -100,
+    transition: { duration: 0.5, type: "tween" as const, ease: easeInOut },
+  },
+});
