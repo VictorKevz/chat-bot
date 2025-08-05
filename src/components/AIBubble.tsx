@@ -20,12 +20,12 @@ export const AIBubble = ({
         initial="hidden"
         className={`z-20 relative mr-auto ${
           isPlaying
-            ? "shadow-yellow-300/40 shadow-xl p-px bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6]"
+            ? "shadow-yellow-300/10 shadow-xl p-px bg-gradient-to-r from-[#8c52ff] to-[#5ce1e6] transition-all duration-300 ease-in-out"
             : ""
         } ${
           isPlaying && showProjects
-            ? "max-w-screen-lg w-full rounded-l-[3rem] rounded-tr-xl "
-            : "w-fit max-w-screen-lg rounded-l-[4rem] rounded-tr-4xl"
+            ? "max-w-screen-lg w-full rounded-l-3xl rounded-tr-xl "
+            : "w-fit max-w-screen-lg rounded-l-4xl rounded-tr-4xl"
         }
       `}
       >
@@ -34,8 +34,8 @@ export const AIBubble = ({
             isPlaying ? "shadow-blue-300/50 shadow-lg " : ""
           } ${
             showProjects
-              ? "w-full rounded-l-[3rem] rounded-tr-xl"
-              : "w-fit max-w-screen-sm rounded-l-[4rem] rounded-tr-4xl"
+              ? "w-full rounded-l-3xl rounded-tr-xl"
+              : "w-fit max-w-screen-sm rounded-l-4xl rounded-tr-4xl"
           }`}
         >
           {children}

@@ -61,7 +61,7 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
       </span>
     );
   };
-
+  const isLong = data.content.split(/\s+/).length > 10;
   return (
     <div className="w-full z-20">
       {isUser ? (
@@ -91,7 +91,9 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
       ) : (
         <AIBubble showProjects={hasProjects} isPlaying={isPlaying}>
           <div
-            className={`w-full flex items-center gap-2 py-2`}
+            className={`w-full flex ${
+              isLong ? "items-start" : "items-center"
+            } gap-2 py-2`}
             role="group"
             aria-label="AI message"
           >

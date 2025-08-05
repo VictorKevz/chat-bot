@@ -84,7 +84,7 @@ export const AudioPlayer = ({
         type="button"
         onClick={handleButtonClick}
         disabled={loading}
-        className="text-[var(--neutral-800)]"
+        className="text-[var(--neutral-800)] rounded-full border bg-[var(--border)]"
         aria-label={
           loading
             ? "Loading audio"
