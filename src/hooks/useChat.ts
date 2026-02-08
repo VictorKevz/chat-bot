@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { ChatPair } from "../types/chatLog";
+import { ChatPair, ChatUiAction, ProjectPaging } from "../types/chatLog";
 import { ProjectItem } from "../types/projects";
 
 export const useChat = () => {
@@ -13,7 +13,8 @@ export const useChat = () => {
   const sendChatMessage = async (
     message: string,
     category?: string,
-    projectsData?: ProjectItem[]
+    projectsData?: ProjectItem[],
+    projectPaging?: ProjectPaging,
   ): Promise<string | undefined> => {
     try {
       setLoading(true);
@@ -28,6 +29,16 @@ export const useChat = () => {
       // Get current chat history including the new message
       const currentChatLog = newChat;
 
+      const lastProjectsMessage = [...newChat]
+        .reverse()
+        .find((entry) => entry.projectsData && entry.projectsData.length > 0);
+      const projectContext = lastProjectsMessage
+        ? {
+            items: lastProjectsMessage.projectsData,
+            paging: lastProjectsMessage.projectPaging,
+          }
+        : undefined;
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,19 +46,35 @@ export const useChat = () => {
           message,
           category,
           chatHistory: currentChatLog,
+          projectPaging,
+          projectContext,
         }),
       });
 
       if (!res.ok) throw new Error("API error");
 
       const data = await res.json();
+      const uiActions: ChatUiAction[] = data.uiActions ?? [];
+      const projectAction = uiActions.find(
+        (action) => action.type === "show_projects"
+      );
+      const actionProjects = projectAction?.items;
+      const actionPaging = projectAction?.paging;
       // Add only AI response (user already added above)
       const aiResponse: ChatPair = {
         role: "assistant",
         content: data.text,
-        projectsData: projectsData || undefined,
+        projectsData: actionProjects ?? projectsData ?? undefined,
+        projectPaging: actionPaging ?? projectPaging,
+        uiActions: uiActions.length > 0 ? uiActions : undefined,
       };
-      const finalChatLog = [...newChat, aiResponse];
+      const followUpPrompt = data.followUpPrompt;
+      const followUpMessage: ChatPair | null = followUpPrompt
+        ? { role: "assistant", content: followUpPrompt }
+        : null;
+      const finalChatLog = followUpMessage
+        ? [...newChat, aiResponse, followUpMessage]
+        : [...newChat, aiResponse];
 
       setChatLog(finalChatLog);
       localStorage.setItem("chats", JSON.stringify(finalChatLog));

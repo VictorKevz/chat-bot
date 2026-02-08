@@ -8,11 +8,17 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ModalVariants } from "../variants";
 
-export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
+export const ChatBubble = ({
+  data,
+  onToggle,
+  onShowNextProjects,
+}: ChatBubbleProps) => {
   const isUser = data.role === "user";
   const hasProjects = Boolean(
     data.projectsData && data.projectsData.length > 0
   );
+  const canShowNext =
+    Boolean(data.projectPaging?.hasMore) && Boolean(onShowNextProjects);
   const [isPlaying, setIsPlaying] = useState(false);
   // Here I only parse links for AI messages
   const renderContent = (text: string) => {
@@ -114,14 +120,32 @@ export const ChatBubble = ({ data, onToggle }: ChatBubbleProps) => {
           </div>
 
           {hasProjects && (
-            <div className="w-full grid gap-8 sm:grid-cols-2 lg:grid-cols-3 py-8 mt-6 border-t border-gray-400/40">
-              {data.projectsData!.map((project) => (
-                <ProjectPreview
-                  key={project.id}
-                  data={project}
-                  onToggle={onToggle}
-                />
-              ))}
+            <div className="w-full flex flex-col gap-4 py-8 mt-6 border-t border-gray-400/40">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {data.projectsData!.map((project) => (
+                  <ProjectPreview
+                    key={project.id}
+                    data={project}
+                    onToggle={onToggle}
+                  />
+                ))}
+              </div>
+              {canShowNext && (
+                <div className="w-full flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (data.projectPaging) {
+                        onShowNextProjects?.(data.projectPaging);
+                      }
+                    }}
+                    className="px-4 py-2 text-sm rounded-full bg-[var(--neutral-600)] text-white hover:bg-[var(--neutral-500)] transition"
+                    aria-label="Show next projects"
+                  >
+                    Show next projects
+                  </button>
+                </div>
+              )}
             </div>
           )}
           <div className="w-full flex justify-end absolute right-2 bottom-2">

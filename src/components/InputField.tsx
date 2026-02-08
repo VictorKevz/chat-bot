@@ -1,7 +1,5 @@
 import { OnChangeType, OnSubmitType, InputFieldProps } from "../types/chatLog";
 import { ArrowUpward, Mic } from "@mui/icons-material";
-import { detectProjectIntent } from "../utils/intentDetection";
-import { ProjectItem } from "../types/projects";
 import { TranscribeButton } from "./TranscribeButton";
 import { useSpeechToText } from "../hooks/useSpeechToText";
 import { useEffect } from "react";
@@ -13,7 +11,6 @@ export const InputField = ({
   sendChatMessage,
   userInput,
   setUserInput,
-  fetchProjects,
 }: InputFieldProps) => {
   const {
     isRecording,
@@ -51,15 +48,7 @@ export const InputField = ({
       return;
     }
 
-    // Detect if user is asking about projects
-    const isProjectQuery = detectProjectIntent(trimmedValue);
-    let projectsData: ProjectItem[] | undefined;
-
-    if (isProjectQuery) {
-      projectsData = await fetchProjects();
-    }
-
-    await sendChatMessage(userInput.message, undefined, projectsData);
+    await sendChatMessage(userInput.message);
     setUserInput({
       message: "",
       isValid: true,

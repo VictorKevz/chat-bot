@@ -7,7 +7,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { FAQs } from "./FAQs";
 import { UserInputState } from "../types/chatLog";
 import { AnimatePresence, motion } from "framer-motion";
-import { useProjects } from "../hooks/useProjects";
 import { RiseLoaderWrapper } from "../loaders/Loaders";
 import { EmptyProjectItem, ProjectItem } from "../types/projects";
 import { ProjectDialog } from "./projects/ProjectDialog";
@@ -30,7 +29,6 @@ export const Content = () => {
   });
 
   const { sendChatMessage, chatLog, onChatDelete, loading } = useChat();
-  const { fetchProjects, projectsLoading } = useProjects();
   const { onShowAlert } = useAlertProvider();
 
   const [showProjectDialog, setShowProjectDialog] = useState(false);
@@ -93,16 +91,10 @@ export const Content = () => {
 
   const OnFAQsUpdate = useCallback(
     async (question: string, category: string) => {
-      if (category === "projects") {
-        // Fetch projects first, then send message with projects data
-        const projectsData = await fetchProjects();
-        sendChatMessage(question, category, projectsData);
-      } else {
-        sendChatMessage(question, category);
-      }
+      sendChatMessage(question, category);
       toggleFAQS();
     },
-    [fetchProjects, sendChatMessage]
+    [sendChatMessage]
   );
   const toggleWarningDialog = () => {
     setShowWarningDialog((prev) => !prev);
@@ -138,11 +130,22 @@ export const Content = () => {
             aria-live="polite"
           >
             {chatLog.map((data, i) => (
-              <ChatBubble key={i} data={data} onToggle={toggleProjectDialog} />
+              <ChatBubble
+                key={i}
+                data={data}
+                onToggle={toggleProjectDialog}
+                onShowNextProjects={(paging) => {
+                  const nextOffset = paging.offset + paging.limit;
+                  sendChatMessage("Show next project", undefined, undefined, {
+                    ...paging,
+                    offset: nextOffset,
+                  });
+                }}
+              />
             ))}
             {loading && <LoadingBubble />}
             <div className="w-full mx-auto">
-              {projectsLoading && <RiseLoaderWrapper />}
+              {loading && <RiseLoaderWrapper />}
             </div>
           </div>
         )}
@@ -189,7 +192,6 @@ export const Content = () => {
           sendChatMessage={sendChatMessage}
           userInput={userInput}
           setUserInput={setUserInput}
-          fetchProjects={fetchProjects}
         />
         {isActivelyScrolling && (
           <div className="fixed bottom-0 left-0 w-screen h-[15vh] backdrop-blur-[.5rem] -z-1"></div>
