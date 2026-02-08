@@ -63,7 +63,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const isGreeting =
-      /^(hi|hello|hey|yo|what's up|whats up|sup)[\s!.?]*$/i.test(
+      /^(hi|hello|hey|yo|what's up|whats up|sups)[\s!.?]*$/i.test(
         message.trim(),
       );
     if (isGreeting) {
@@ -335,8 +335,7 @@ When answering about Victor:
         }
 
         const safeOffset = Math.max(0, Number(args.offset ?? 0));
-        const requestedLimit = Number(args.limit ?? DEFAULT_PROJECT_PAGE_SIZE);
-        const safeLimit = Math.min(Math.max(requestedLimit, 1), 2);
+        const safeLimit = DEFAULT_PROJECT_PAGE_SIZE;
         const rangeEnd = safeOffset + safeLimit - 1;
 
         const { data, error, count } = await supabase
@@ -387,13 +386,14 @@ When answering about Victor:
       const projectLines = (items as Array<Record<string, unknown>>).map(
         (project: Record<string, unknown>) => formatProjectLine(project),
       );
-      const summaryText = [
-        `I found ${totalCount} projects Victor worked on.`,
-        "Here are the first two:",
-        ...projectLines.map(
-          (line: string, index: number) => `${index + 1}) ${line}`,
-        ),
-      ]
+      const introLine =
+        projectAction?.paging.offset && projectAction.paging.offset > 0
+          ? "Here are the next projects:"
+          : `I found ${totalCount} projects Victor worked on. Here are the first two:`;
+
+      const summaryText = [introLine, ...projectLines.map(
+        (line: string, index: number) => `${index + 1}) ${line}`,
+      )]
         .filter(Boolean)
         .join(" ");
 

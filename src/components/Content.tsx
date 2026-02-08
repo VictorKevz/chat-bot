@@ -144,9 +144,6 @@ export const Content = () => {
               />
             ))}
             {loading && <LoadingBubble />}
-            <div className="w-full mx-auto">
-              {loading && <RiseLoaderWrapper />}
-            </div>
           </div>
         )}
       </section>
